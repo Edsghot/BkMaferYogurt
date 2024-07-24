@@ -20,4 +20,8 @@ export class UpdateProductRequest {
     @IsOptional()
     @IsNumber()
     Price?: number;
+
+    Visible: boolean;
+
+    Stock: number;
 }

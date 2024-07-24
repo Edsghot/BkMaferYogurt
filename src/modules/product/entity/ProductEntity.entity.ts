@@ -22,6 +22,12 @@ export class Product {
   @Column()
   UrlImage: string;
 
+  @Column({ default: true })
+  Visible: boolean;
+
+  @Column()
+  Stock: number;
+
   @OneToMany(() => CartItem, (cartItem) => cartItem.Product)
   CartItems: CartItem[];
 

@@ -18,4 +18,6 @@ export class CreateProductRequest {
     @IsNotEmpty()
     @IsNumber()
     Price: number;
+  
+    Stock: number;
   }
