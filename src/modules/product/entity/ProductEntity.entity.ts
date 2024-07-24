@@ -1,7 +1,6 @@
 import { SaleDetail } from "src/modules/sale/entity/SaleDetail.entity";
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 import { CartItem } from "./CarItemEntity.entity";
-import { ImageEntity } from "./ImageEntity.entity";
 
 @Entity()
 export class Product {
@@ -20,8 +19,8 @@ export class Product {
   @Column('double')
   Price: number;
 
-  @OneToMany(() => ImageEntity, (image) => image.Product)
-  Images: ImageEntity[];
+  @Column()
+  UrlImage: string;
 
   @OneToMany(() => CartItem, (cartItem) => cartItem.Product)
   CartItems: CartItem[];

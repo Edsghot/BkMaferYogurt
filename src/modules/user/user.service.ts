@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import {CreateUserRequest} from './dto/CreateUserRequest.request'
-import {UpdateUserRequest} from './dto/UpdateUserRequest.request'
+import {CreateUserRequest} from './request/CreateUserRequest.request'
+import {UpdateUserRequest} from './request/UpdateUserRequest.request'
 import { InjectRepository } from '@nestjs/typeorm';
 import { ValidateService } from 'src/Common/Validate/validate.service';
 import { Repository } from 'typeorm';

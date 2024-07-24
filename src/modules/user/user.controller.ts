@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { validate } from 'class-validator';
 import { UserService } from './user.service';
-import { CreateUserRequest } from './dto/CreateUserRequest.request';
-import { UpdateUserRequest } from './dto/UpdateUserRequest.request';
-import { LoginUserRequest } from './dto/LoginUserRequest.request';
+import { CreateUserRequest } from './request/CreateUserRequest.request';
+import { UpdateUserRequest } from './request/UpdateUserRequest.request';
+import { LoginUserRequest } from './request/LoginUserRequest.request';
 
 @Controller('api/user')
 export class UserController {
