@@ -23,5 +23,7 @@ export class UpdateProductRequest {
 
     Visible: boolean;
 
+    Category:string;
+
     Stock: number;
 }

@@ -26,6 +26,9 @@ export class Product {
   @Column()
   Stock: number;
 
+  @Column()
+  Category:string;
+
   @OneToMany(() => SaleDetail, (saleDetail) => saleDetail.Product)
   SaleDetails: SaleDetail[];
 }
