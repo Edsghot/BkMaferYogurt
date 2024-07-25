@@ -55,14 +55,25 @@ export class CartService {
                 return {msg:"se creo el carrito", success: true}
             }
 
-            var newCartItem = new CartItem();
-            newCartItem.Cart = cart;
-            newCartItem.Product = product;
-            newCartItem.DateAdded = new Date();
-            newCartItem.Quantity = request.Quantity;
-            await this.cartItemRepository.save(newCartItem);
+            var cartItem = await this.cartItemRepository.findOne({where: {Product: product,Cart: cart}});
 
-            return {msg:"se agrego al carrito", success: true}
+            if(!cartItem){
+                var newCartItem = new CartItem();
+                newCartItem.Cart = cart;
+                newCartItem.Product = product;
+                newCartItem.DateAdded = new Date();
+                newCartItem.Quantity = request.Quantity;
+                await this.cartItemRepository.save(newCartItem);
+
+                return {msg:"se agrego al carrito", success: true}
+            }
+
+            cartItem.Quantity = request.Quantity;
+
+            await this.cartItemRepository.save(cartItem);
+
+            return {msg: "se actualizo el carrito", success: true}
+         
 
         } catch (error) {
           return { msg: 'Error al insertar carrito', detailMsg: error.message, success: false };
