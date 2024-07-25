@@ -77,4 +77,5 @@ export class ProductService {
           return { msg: 'Error al eliminar producto', detailMsg: error.message, success: false };
         }
       }
+      //Hola mundo
 }
