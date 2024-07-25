@@ -71,10 +71,10 @@ export class UserService {
       // Guardar la nueva entidad de usuario en la base de datos
       await this.userRepository.save(newUser);
   
-      return { msg: 'Usuario insertado correctament', success: true}
+      return { msg: 'Usuario insertado correctamente', success: true}
 
     }catch(e){
-        return {msg: "Error al insertar usuario",success: true,smsDetail: e.msg}
+        return {msg: "Error al insertar usuario",success: false,smsDetail: e.msg}
     }
 }
       

@@ -79,4 +79,23 @@ export class CartService {
           return { msg: 'Error al insertar carrito', detailMsg: error.message, success: false };
         }
       }
+
+      async getCartByUserId(userId: number){
+        var user=await this.userRepository.findOne({
+          where:{IdUser:userId}
+        });
+        if (!user) {
+          return { msg: 'No se encontro usuario', success: false, data: null };
+        }
+        var cart=await this.cartRepository.findOne({
+          where:{User:user,Deleted:false},
+          relations:['Items']
+        });
+
+        if (!cart) {
+          return { msg: 'No se encontro carrito', success: false, data: null };
+        }
+        return { msg: 'Lista de carrito', success: true, data: cart };
+      }
+
 }
