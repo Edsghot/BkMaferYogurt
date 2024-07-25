@@ -5,6 +5,7 @@ import { ProductModule } from './modules/product/product.module';
 import { CloudinaryService } from './ServicesCloud/cloudinary/cloudinary.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CloudinaryModule } from './ServicesCloud/cloudinary/cloudinary.module';
+import { CartModule } from './modules/cart/cart.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -16,7 +17,7 @@ import { CloudinaryModule } from './ServicesCloud/cloudinary/cloudinary.module';
     database: 'dbjhfjuv_MaferYogurt',
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true
-}),UserModule, ProductModule,SaleModule,CloudinaryModule],
+}),UserModule, ProductModule,SaleModule,CloudinaryModule, CartModule],
   controllers: [],
   providers: [CloudinaryService],
 })

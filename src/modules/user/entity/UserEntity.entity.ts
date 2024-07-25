@@ -1,3 +1,4 @@
+import { Cart } from 'src/modules/cart/entity/CartEntity.entity';
 import { ShoppingCart } from 'src/modules/product/entity/ShoppingCart.entity';
 import { Sale } from 'src/modules/sale/entity/SaleEntity.entity';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
@@ -39,6 +40,9 @@ export class User {
 
   @OneToMany(() => Sale, (sale) => sale.Client)
   Sales: Sale[];
+
+  @OneToMany(() => Cart, cart => cart.User)
+  Carts: Cart[];
 }
 
 
