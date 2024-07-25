@@ -101,4 +101,34 @@ export class CartService {
         return { msg: 'Lista de carrito', success: true, data: cartItem };
       }
 
+      async deleteCartItem(cartItemId: number) {
+        try {
+          await this.cartItemRepository.delete(cartItemId);
+          return { msg: 'Cart Item eliminado exitosamente', success: true };
+        } catch (error) {
+          console.error('Error al eliminar Cart Item:', error);
+          return { msg: 'Error al eliminar Cart Item', detailMsg: error.message, success: false };
+        }
+      }
+
+      async deleteAllItem(cartId: number) {
+        try{
+        var cart= await this.cartRepository.findOne({
+          where:{IdCart:cartId}
+        });
+        if(!cart){
+          return { msg: 'No se encontro carrito', success: false, data: null };
+        }
+        const cartItems = await this.cartItemRepository.find({
+          where: { Cart: cart },
+        });
+    
+        await this.cartItemRepository.remove(cartItems);
+
+        return { msg: 'Los items de Cart eliminados exitosamente', success: true };
+      }catch (error) {
+        console.error('Error al eliminar todos los items de Cart:', error);
+        return { msg: 'Error al eliminar todos los items de Cart', detailMsg: error.message, success: false };
+      }
+      }
 }
