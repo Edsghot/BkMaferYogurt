@@ -49,6 +49,12 @@ export class UserService {
       if (userDni) {
         return { msg: "Ya se registró un usuario con ese DNI", success: false, data: null };
       }
+
+      const userMail = await this.userRepository.findOne({ where: { Mail: request.Mail } });
+  
+      if (userMail) {
+        return { msg: "Ya se registró un usuario con ese EMAIL", success: false, data: null };
+      }
   
       const newUser = this.userRepository.create({
         FirstName: request.FirstName,

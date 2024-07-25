@@ -32,7 +32,7 @@ export class User {
   @Column('int')
   Rol: number;
 
-  @Column()
+  @Column({ type: 'date', nullable: true })
   BirthDate: Date;
 
   @OneToMany(() => ShoppingCart, (shoppingCart) => shoppingCart.User)
