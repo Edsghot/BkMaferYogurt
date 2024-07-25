@@ -65,7 +65,7 @@ export class CartService {
             return {msg:"se agrego al carrito", success: true}
 
         } catch (error) {
-          return { msg: 'Error al insertar producto', detailMsg: error.message, success: false };
+          return { msg: 'Error al insertar carrito', detailMsg: error.message, success: false };
         }
       }
 }
