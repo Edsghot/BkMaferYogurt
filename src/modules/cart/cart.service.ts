@@ -90,7 +90,7 @@ export class CartService {
         var cart=await this.cartRepository.findOne({
           where:{User:user,Deleted:false}
         });
-        var cartItem=await this.cartItemRepository.findOne({
+        var cartItem=await this.cartItemRepository.find({
           where:{Cart:cart},
           relations:['Product','Cart']
         });
