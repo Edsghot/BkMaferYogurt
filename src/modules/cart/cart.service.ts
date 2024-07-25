@@ -63,6 +63,7 @@ export class CartService {
             await this.cartItemRepository.save(newCartItem);
 
             return {msg:"se agrego al carrito", success: true}
+
         } catch (error) {
           return { msg: 'Error al insertar producto', detailMsg: error.message, success: false };
         }
