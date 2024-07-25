@@ -17,5 +17,5 @@ export class CartItem {
   Quantity: number;
 
   @Column('date')
-  DateAdded: string;
+  DateAdded: Date;
 }

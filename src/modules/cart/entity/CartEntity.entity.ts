@@ -15,4 +15,7 @@ export class Cart {
 
   @Column()
   DateAdded: Date;
+
+  @Column()
+  Deleted: Boolean;
 }

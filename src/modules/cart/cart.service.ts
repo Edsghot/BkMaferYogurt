@@ -12,20 +12,57 @@ import { User } from '../user/entity/UserEntity.entity';
 export class CartService {
     constructor(
         @InjectRepository(Cart)
-        private readonly productRepository: Repository<Cart>,
+        private readonly cartRepository: Repository<Cart>,
         @InjectRepository(CartItem)
         private readonly cartItemRepository: Repository<CartItem>,
-
+        @InjectRepository(Product)
+        private readonly productRepository: Repository<Product>,
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
       ) {}
     
       async insertProduct(request: CreateCartRequest) {
         try {
-            
-            
+            var user = await this.userRepository.findOne({where: {IdUser: request.IdUser}});
+            if(!user){
+                return {msg: "No se encontro el usuario", success: false}
+            }
 
+            var product = await this.productRepository.findOne({where: {IdProduct: request.IdProduct}});
 
+            if(!product || product.Stock <= 0 || product.Stock <= request.Quantity){
+                return {msg: "No se encontro el producto o no tiene stock suficiente", success: false}
+            }
+
+            var cart = await this.cartRepository.findOne({where: {User: user, Deleted: false}});
+            
+            if(!cart){
+
+                let newCart = new Cart();
+
+                newCart.DateAdded = new Date()
+                newCart.Deleted = false;
+                newCart.User = user;
+                await this.cartRepository.save(newCart);
+
+                let newCartItem = new CartItem();
+                newCartItem.Cart = newCart;
+                newCartItem.Product = product;
+                newCartItem.DateAdded = new Date();
+                newCartItem.Quantity = request.Quantity;
+                await this.cartItemRepository.save(newCartItem);
+
+                return {msg:"se creo el carrito", success: true}
+            }
+
+            var newCartItem = new CartItem();
+            newCartItem.Cart = cart;
+            newCartItem.Product = product;
+            newCartItem.DateAdded = new Date();
+            newCartItem.Quantity = request.Quantity;
+            await this.cartItemRepository.save(newCartItem);
+
+            return {msg:"se agrego al carrito", success: true}
         } catch (error) {
           return { msg: 'Error al insertar producto', detailMsg: error.message, success: false };
         }
