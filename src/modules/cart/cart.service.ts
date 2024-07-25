@@ -88,14 +88,17 @@ export class CartService {
           return { msg: 'No se encontro usuario', success: false, data: null };
         }
         var cart=await this.cartRepository.findOne({
-          where:{User:user,Deleted:false},
-          relations:['Items']
+          where:{User:user,Deleted:false}
+        });
+        var cartItem=await this.cartItemRepository.findOne({
+          where:{Cart:cart},
+          relations:['Product','Cart']
         });
 
         if (!cart) {
           return { msg: 'No se encontro carrito', success: false, data: null };
         }
-        return { msg: 'Lista de carrito', success: true, data: cart };
+        return { msg: 'Lista de carrito', success: true, data: cartItem };
       }
 
 }
