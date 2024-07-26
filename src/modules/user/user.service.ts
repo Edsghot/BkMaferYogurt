@@ -5,6 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ValidateService } from 'src/Common/Validate/validate.service';
 import { Repository } from 'typeorm';
 import { User } from './entity/UserEntity.entity';
+import * as moment from 'moment-timezone';
+import { DateRangeDto } from './request/DateRangeDto.dto';
 
 @Injectable()
 export class UserService {
@@ -65,7 +67,8 @@ export class UserService {
         Dni: request.Dni,
         Mail: request.Mail,
         Rol: request.Rol,
-        Address: request.Address
+        Address: request.Address,
+        DateCreated:moment.tz('America/Lima').toDate()
       });
   
       // Guardar la nueva entidad de usuario en la base de datos
@@ -164,5 +167,32 @@ export class UserService {
     }
   }
   
+  async getUserByDateRange(request:DateRangeDto){
+    try{
+      const data = await this.userRepository.query(
+          `CALL getUserByDateRange('${request.StartDate}', '${request.EndDate}')`,
+        );
+        if (data && data.length > 0 && data[0].length > 0) {
+          return {
+            msg: 'Lista de usuarios completa',
+            data: data[0],
+            success: true,
+          };
+        } else {
+          return {
+            msg: 'La lista de usuarios está vacía',
+            data: [],
+            success: false,
+          };
+        }
+  }catch(error){
+      console.error('Error al recuperar todos los usuarios:', error);
+      return {
+          msg: 'Error al recuperar todos los usuarios',
+          detailMsg: error.message,
+          success: false,
+    };
+  }
+  }
 }
 

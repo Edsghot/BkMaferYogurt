@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { CreateUserRequest } from './request/CreateUserRequest.request';
 import { UpdateUserRequest } from './request/UpdateUserRequest.request';
 import { LoginUserRequest } from './request/LoginUserRequest.request';
+import { DateRangeDto } from './request/DateRangeDto.dto';
 
 @Controller('api/user')
 export class UserController {
@@ -44,5 +45,10 @@ export class UserController {
             return {msg: "Error de datos de ingreso", detailMsg:errorMessage }
         }
         return await this.userService.login(loginDto.UserRequest, loginDto.Password);
+    }
+
+    @Get("/getUserByDateRange")
+    async getUserByDateRange(@Body() request: DateRangeDto) {
+      return await this.userService.getUserByDateRange(request);
     }
 }

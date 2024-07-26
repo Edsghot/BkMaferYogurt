@@ -35,6 +35,9 @@ export class User {
   @Column({ type: 'date', nullable: true })
   BirthDate: Date;
 
+  @Column()
+  DateCreated: Date;
+
   @OneToMany(() => ShoppingCart, (shoppingCart) => shoppingCart.User)
   ShoppingCarts: ShoppingCart[];
 
