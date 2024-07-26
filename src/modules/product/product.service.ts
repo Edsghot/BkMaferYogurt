@@ -33,7 +33,14 @@ export class ProductService {
             return { msg: 'Producto no encontrado', success: false };
           }
     
-          Object.assign(product, updateProductDto);
+          product.Description=updateProductDto.Description;
+          product.Name=updateProductDto.Name;
+          product.NutritionalInformation=updateProductDto.NutritionalInformation;
+          product.Price=updateProductDto.Price;
+          product.Stock=updateProductDto.Stock;
+          product.Visible=updateProductDto.Visible;
+          product.UrlImage=updateProductDto.UrlImage;
+          
           await this.productRepository.save(product);
     
           return { msg: 'Producto actualizado exitosamente', success: true };

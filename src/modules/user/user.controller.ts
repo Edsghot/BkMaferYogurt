@@ -51,4 +51,9 @@ export class UserController {
     async getUserByDateRange(@Body() request: DateRangeDto) {
       return await this.userService.getUserByDateRange(request);
     }
+
+    @Get("/countUsersCliente")
+    async countUsersCliente() {
+      return await this.userService.countUsersCliente();
+    }
 }

@@ -6,15 +6,17 @@ import { CloudinaryService } from './ServicesCloud/cloudinary/cloudinary.service
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CloudinaryModule } from './ServicesCloud/cloudinary/cloudinary.module';
 import { CartModule } from './modules/cart/cart.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [ConfigModule.forRoot({isGlobal: true}),
+    TypeOrmModule.forRoot({
     type: 'mysql',
-    host: 'jhedgost.com',
+    host: process.env.HOST_DB,
     port: 3306,
-    username: 'dbjhfjuv_edsghot',
-    password: 'Repro321.',
-    database: 'dbjhfjuv_MaferYogurt',
+    username: process.env.USERNAME_DB,
+    password: process.env.PASSWORD_DB,
+    database: process.env.DATABASE_DB,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true
 }),UserModule, ProductModule,SaleModule,CloudinaryModule, CartModule],

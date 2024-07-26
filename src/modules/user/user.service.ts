@@ -194,5 +194,24 @@ export class UserService {
     };
   }
   }
+
+  async countUsersCliente() {
+    try {
+      const result = await this.userRepository.query('SELECT COUNT(*) FROM user WHERE Rol=1');
+      const count = result[0]['COUNT(*)'];
+      return {
+        msg: 'Cantidad de clientes',
+        count: count,
+        success: true,
+      };
+    } catch (error) {
+      console.error('Error obteniendo la cantidad de clientes:', error);
+      return {
+        msg: 'Error al recuperar la cantidad de clientes',
+        detailMsg: error.message,
+        success: false,
+  }; 
+    }
+  }
 }
 

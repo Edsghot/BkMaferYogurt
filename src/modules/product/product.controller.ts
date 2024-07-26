@@ -29,8 +29,21 @@ export class ProductController {
     }
   
     @Put('/update')
-    async updateProduct(@Body() updateProductDto: UpdateProductRequest) {
-      return await this.productService.updateProduct(updateProductDto);
+    @UseInterceptors(FileInterceptor('file'))
+    async updateProduct(
+      @Body() updateProductDto: UpdateProductRequest,
+      @UploadedFile() file?: Express.Multer.File
+    ) {
+      try{
+
+        var res = await this.cloudinaryService.uploadFile(file, FOLDER_PAYMENT);
+
+        updateProductDto.UrlImage = res.secure_url;
+
+        return await this.productService.updateProduct(updateProductDto);
+    }catch(e){
+        return {msg:"Error al guardar la imagen", success: false, msgDetail: e.msg}
+    }
     }
   
     @Get()
