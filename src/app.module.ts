@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CloudinaryModule } from './ServicesCloud/cloudinary/cloudinary.module';
 import { CartModule } from './modules/cart/cart.module';
 import { ConfigModule } from '@nestjs/config';
+import { ShipmentModule } from './modules/shipment/shipment.module';
 
 @Module({
   imports: [ConfigModule.forRoot({isGlobal: true}),
@@ -19,7 +20,7 @@ import { ConfigModule } from '@nestjs/config';
     database: process.env.DATABASE_DB,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true
-}),UserModule, ProductModule,SaleModule,CloudinaryModule, CartModule],
+}),UserModule, ProductModule,SaleModule,CloudinaryModule, CartModule, ShipmentModule],
   controllers: [],
   providers: [CloudinaryService],
 })

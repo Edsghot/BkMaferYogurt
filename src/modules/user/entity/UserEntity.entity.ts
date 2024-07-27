@@ -46,6 +46,9 @@ export class User {
 
   @OneToMany(() => Cart, cart => cart.User)
   Carts: Cart[];
+
+  @Column()
+  Deleted:boolean;
 }
 
 

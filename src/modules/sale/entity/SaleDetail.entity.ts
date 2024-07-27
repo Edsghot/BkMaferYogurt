@@ -8,9 +8,6 @@ export class SaleDetail {
   @PrimaryGeneratedColumn()
   IdDetail: number;
 
-  @ManyToOne(() => Sale, (sale) => sale.SaleDetails)
-  @JoinColumn({ name: 'saleId' })
-  Sale: Sale;
 
   @ManyToOne(() => Product, (product) => product.SaleDetails)
   @JoinColumn({ name: 'productId' })

@@ -8,3 +8,13 @@ END//
 DELIMITER ;
 
 CALL getUserByDateRange('2024-07-01', '2024-07-30');
+
+DELIMITER //
+CREATE PROCEDURE getLastShipment(IN userId INT) 
+BEGIN 
+	SELECT * FROM shipment WHERE IdUser=userId 
+    	ORDER BY DateAdd DESC LIMIT 1; 
+END//
+DELIMITER ;
+
+CALL getLastShipment('7');

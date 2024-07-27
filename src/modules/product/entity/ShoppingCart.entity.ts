@@ -14,6 +14,4 @@ export class ShoppingCart {
   @Column('date')
   Date: string;
 
-  @OneToMany(() => Sale, (sale) => sale.ShoppingCart)
-  Sales: Sale[];
 }

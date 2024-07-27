@@ -131,4 +131,26 @@ export class CartService {
         return { msg: 'Error al eliminar todos los items de Cart', detailMsg: error.message, success: false };
       }
       }
+
+      async deleteCart(userId:number){
+        try{
+          var user=await this.userRepository.findOne({
+            where:{IdUser:userId}
+          })
+          if(!user){
+            return { msg: 'No se encontro usuario', success: false, data: null };
+          }
+          var cart= await this.cartRepository.findOne({
+            where:{User:user,Deleted:false}
+          });
+          if(!cart){
+            return { msg: 'No se encontro carrito', success: false, data: null };
+          }
+          cart.Deleted=true;
+          await this.cartRepository.save(cart);
+        }catch (error) {
+          console.error('Error al eliminar todo el carrito:', error);
+          return { msg: 'Error al eliminar todo el carrito', detailMsg: error.message, success: false };
+        }
+      }
 }

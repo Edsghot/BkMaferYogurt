@@ -68,7 +68,8 @@ export class UserService {
         Mail: request.Mail,
         Rol: request.Rol,
         Address: request.Address,
-        DateCreated:moment.tz('America/Lima').toDate()
+        DateCreated:moment.tz('America/Lima').toDate(),
+        Deleted:false
       });
   
       // Guardar la nueva entidad de usuario en la base de datos
@@ -110,7 +111,7 @@ export class UserService {
   
   async getAllUsers() {
     try {
-      const users = await this.userRepository.find();
+      const users = await this.userRepository.find({where:{Deleted:false}});
       return { data: users, msg: 'Éxito', success: true };
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
@@ -120,7 +121,14 @@ export class UserService {
   
   async deleteUser(userId: number) {
     try {
-      await this.userRepository.delete(userId);
+      var user=await this.userRepository.findOne({
+        where:{IdUser:userId}
+      })
+      if(!user){
+        return { msg: 'No se encontro usuario', success: false, data: null };
+      }
+      user.Deleted=true;
+      await this.userRepository.save(user);
       return { msg: 'Usuario eliminado exitosamente', success: true };
     } catch (error) {
       console.error('Error al eliminar usuario:', error);

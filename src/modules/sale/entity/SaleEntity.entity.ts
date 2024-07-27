@@ -1,8 +1,9 @@
-import { Shipment } from "src/modules/product/entity/ShipmentEnity.entity";
+
 import { ShoppingCart } from "src/modules/product/entity/ShoppingCart.entity";
 import { User } from "src/modules/user/entity/UserEntity.entity";
 import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, OneToMany } from "typeorm";
 import { SaleDetail } from "./SaleDetail.entity";
+import { Cart } from "src/modules/cart/entity/CartEntity.entity";
 
 // Sale Entity
 @Entity()
@@ -11,22 +12,35 @@ export class Sale {
   IdSales: number;
 
   @ManyToOne(() => User, (user) => user.Sales)
-  @JoinColumn({ name: 'clientId' })
+  @JoinColumn({ name: 'userId' })
   Client: User;
 
+  @Column()
+  ShippingMethod:boolean;
+
+  @Column()
+  PaymentMethod:boolean;
+
+  @Column()
+  PaymentNumber:string;
+
+  @Column()
+  CardNumber:string;
+
+  @Column()
+  Process:boolean;
+
   @Column('date')
-  SaleDate: string;
+  SaleDate: Date;
 
   @Column('double')
   Total: number;
 
-  @ManyToOne(() => ShoppingCart, (shoppingCart) => shoppingCart.Sales)
-  @JoinColumn({ name: 'shoppingCartId' })
-  ShoppingCart: ShoppingCart;
+  @ManyToOne(() => Cart, (cart) => cart.Sales)
+  @JoinColumn({ name: 'cartId' })
+  Cart: Cart;
 
-  @OneToMany(() => SaleDetail, (saleDetail) => saleDetail.Sale)
-  SaleDetails: SaleDetail[];
+  @Column()
+  idShipment:number;
 
-  @OneToMany(() => Shipment, (shipment) => shipment.Sale)
-  Shipments: Shipment[];
 }

@@ -27,4 +27,9 @@ export class CartController {
     async deleteAllItem(@Param('id') id: number) {
       return await this.serviceCart.deleteAllItem(id);
     }
+
+    @Delete('/deleteCart/:id')
+    async deleteCart(@Param('id') id: number) {
+      return await this.serviceCart.deleteCart(id);
+    }
 }

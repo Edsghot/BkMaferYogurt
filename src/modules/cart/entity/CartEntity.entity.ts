@@ -1,6 +1,7 @@
 import { User } from "src/modules/user/entity/UserEntity.entity";
 import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, Column } from "typeorm";
 import { CartItem } from "./CartItem.entity";
+import { Sale } from "src/modules/sale/entity/SaleEntity.entity";
 
 @Entity()
 export class Cart {
@@ -18,4 +19,7 @@ export class Cart {
 
   @Column()
   Deleted: Boolean;
+
+  @OneToMany(() => Sale, (sale) => sale.Cart)
+  Sales: Sale[];
 }
