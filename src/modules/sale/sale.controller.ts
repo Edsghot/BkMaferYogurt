@@ -1,14 +1,29 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { SaleService } from './sale.service';
 import { CreateSaleRequest } from './request/CreateSaleRequest.request';
+import { resPaymentDto } from './request/reqPaymentDto.dto';
+import { CloudinaryService } from 'src/ServicesCloud/cloudinary/cloudinary.service';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { FOLDER_PAYMENT } from 'src/Common/constants/constantService';
 
 @Controller('api/sale')
 export class SaleController {
-    constructor(private readonly saleService: SaleService){}
+    constructor(private readonly saleService: SaleService,
+        private cloudinaryService: CloudinaryService){}
 
     @Post("/insert")
-    async insertSale(@Body() request: CreateSaleRequest) {
-            return this.saleService.insertSale(request);
+    @UseInterceptors(FileInterceptor('file'))
+    async insertSale(
+        @Body() request: CreateSaleRequest,
+        @UploadedFile() file?: Express.Multer.File) {
+            if(!file){
+                return this.saleService.insertSale(request);
+            } else{
+                var res = await this.cloudinaryService.uploadFile(file, FOLDER_PAYMENT);
+
+                request.ImagePayment = res.secure_url;
+                return this.saleService.insertSale(request);
+            }
     }
 
     @Get()
@@ -24,5 +39,15 @@ export class SaleController {
     @Delete('/delete/:id')
     async deleteSale(@Param('id') id: number) {
         return await this.saleService.deleteSale(id);
+    }
+
+    @Get('/acceptPayment/:IdCart/:IdUser')
+    async success(@Param() params: resPaymentDto) {
+        return await this.saleService.AcceptPayment(params);
+    }
+
+    @Get('/failPayment/:IdCart/:IdUser')
+    async Fail(@Param() params: resPaymentDto) {
+        return await this.saleService.FailPayment(params);
     }
 }

@@ -43,4 +43,6 @@ export class Sale {
   @Column()
   idShipment:number;
 
+  @Column()
+  ImagePayment: string;
 }

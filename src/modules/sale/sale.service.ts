@@ -6,6 +6,10 @@ import { Sale } from './entity/SaleEntity.entity';
 import { Cart } from '../cart/entity/CartEntity.entity';
 import { User } from '../user/entity/UserEntity.entity';
 import * as moment from 'moment-timezone';
+import { AuthValidateService } from '../auth-validate/auth-validate.service';
+import { resPaymentDto } from './request/reqPaymentDto.dto';
+import { ReqSuccessDto } from './request/reqSuccesDto.dto';
+import { ReqErrorDto } from './request/reqErrorDto.dto';
 
 @Injectable()
 export class SaleService {
@@ -16,6 +20,7 @@ export class SaleService {
         private readonly cartRepository: Repository<Cart>,
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
+        private mailValidateService: AuthValidateService
       ) {}
 
     async insertSale(request: CreateSaleRequest){
@@ -31,15 +36,20 @@ export class SaleService {
           return { msg: 'No se encontro el carrito', success: false };
         }
         sale.Cart = cart;
-
+        if(request.PaymentMethod==true){
+          await this.mailValidateService.sendMailUser(request);
+          sale.Process=false;
+        }else{
+          sale.Process=true;
+        }
         sale.ShippingMethod=request.ShippingMethod;
         sale.PaymentMethod=request.PaymentMethod;
-        sale.PaymentNumber=request.PaymentNumber;
+        sale.PaymentNumber=Math.floor(1000 + Math.random() * 9000).toString();
         sale.CardNumber=request.CardNumber;
-        sale.Process=request.Process;
         sale.Total=request.Total;
         sale.SaleDate=moment.tz('America/Lima').toDate();
         sale.idShipment=request.idShipment;
+        sale.ImagePayment=request.ImagePayment;
 
         
         await this.saleRepository.save(sale);
@@ -82,4 +92,64 @@ export class SaleService {
     }
   }
 
+  async AcceptPayment(request: resPaymentDto) {
+    try {
+        var user =await this.userRepository.findOne({where:{IdUser:request.IdUser}})
+        if(!user){
+          return{msg: "error con el usuario"}
+        }
+        var cart=await this.cartRepository.findOne({where:{IdCart:request.IdCart}})
+        if(!cart){
+          return{msg: "error con el carrito"}
+        }
+        var sale = await this.saleRepository.findOne({where:{Client: user,Cart: cart}});
+
+        if(!sale){
+            return{msg: "error con la venta"}
+        }
+        sale.Process=true;
+        await this.saleRepository.save(sale);
+        var res = new ReqSuccessDto();
+            res.Mail = user.Mail;
+            res.user=user.FirstName;
+
+      await this.mailValidateService.sendPaymentSuccess(res);
+
+      return { msg: 'se envio el correo satisfactoriamente'};
+    } catch (error) {
+      console.error('Error al insertar pago:', error);
+      return { msg: 'Error al insertar pago', detailMsg: error.message, success: false };
+    }
+  }
+
+  async FailPayment(request: resPaymentDto) {
+    try {
+
+      var user =await this.userRepository.findOne({where:{IdUser:request.IdUser}})
+      if(!user){
+        return{msg: "error con el usuario"}
+      }
+      var cart=await this.cartRepository.findOne({where:{IdCart:request.IdCart}})
+      if(!cart){
+        return{msg: "error con el carrito"}
+      }
+      var sale = await this.saleRepository.findOne({where:{Client: user,Cart: cart}});
+
+      if(!sale){
+          return{msg: "error con la venta"}
+      }
+        
+        var res = new ReqErrorDto();
+            res.Mail = user.Mail;
+            res.user = user.FirstName;
+            res.Img = sale.ImagePayment;
+
+      await this.mailValidateService.sendPaymentError(res);
+
+      return { msg: 'se envio el correo satisfactoriamente' };
+    } catch (error) {
+      console.error('Error al insertar pago:', error);
+      return { msg: 'Error al insertar pago', detailMsg: error.message, success: false };
+    }
+  }
 }

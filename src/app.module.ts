@@ -8,6 +8,7 @@ import { CloudinaryModule } from './ServicesCloud/cloudinary/cloudinary.module';
 import { CartModule } from './modules/cart/cart.module';
 import { ConfigModule } from '@nestjs/config';
 import { ShipmentModule } from './modules/shipment/shipment.module';
+import { AuthValidateModule } from './modules/auth-validate/auth-validate.module';
 
 @Module({
   imports: [ConfigModule.forRoot({isGlobal: true}),
@@ -20,7 +21,7 @@ import { ShipmentModule } from './modules/shipment/shipment.module';
     database: process.env.DATABASE_DB,
     entities: [__dirname + '/**/*.entity{.ts,.js}'],
     synchronize: true
-}),UserModule, ProductModule,SaleModule,CloudinaryModule, CartModule, ShipmentModule],
+}),UserModule, ProductModule,SaleModule,CloudinaryModule, CartModule, ShipmentModule,AuthValidateModule],
   controllers: [],
   providers: [CloudinaryService],
 })
