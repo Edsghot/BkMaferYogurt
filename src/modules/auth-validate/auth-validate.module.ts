@@ -5,9 +5,10 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../user/entity/UserEntity.entity';
 import { Sale } from '../sale/entity/SaleEntity.entity';
+import { ValidateEmailSmsEntity } from './entity/ValidateEmailSms.entity';
 
 @Module({
-  imports: [
+  imports: [TypeOrmModule.forFeature([ValidateEmailSmsEntity]),
     MailerModule.forRoot(
       {
         transport: {

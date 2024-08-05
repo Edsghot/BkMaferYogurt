@@ -22,4 +22,5 @@ export class Cart {
 
   @OneToMany(() => Sale, (sale) => sale.Cart)
   Sales: Sale[];
+
 }

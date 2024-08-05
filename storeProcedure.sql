@@ -18,3 +18,14 @@ END//
 DELIMITER ;
 
 CALL getLastShipment('7');
+
+DELIMITER //
+CREATE PROCEDURE getSalesByDateRange(IN Inicio DATE, IN Fin DATE) 
+BEGIN 
+	SELECT s.IdSales,u.FirstName,u.LastName,s.ShippingMethod,s.PaymentMethod,s.Total,s.ImagePayment,s.SaleDate,s.Process
+	FROM sale s
+    INNER JOIN user u on s.userId=u.IdUser
+	WHERE s.SaleDate >= Inicio AND s.SaleDate <= Fin; 
+END//
+DELIMITER ;
+CALL getSalesByDateRange('2024-07-01', '2024-07-31');

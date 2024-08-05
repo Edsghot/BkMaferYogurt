@@ -111,7 +111,9 @@ export class UserService {
   
   async getAllUsers() {
     try {
-      const users = await this.userRepository.find({where:{Deleted:false}});
+      const users = await this.userRepository.find({
+        select: ['IdUser', 'FirstName', 'LastName','Dni','Address','Phone','Mail','Rol','BirthDate'],
+        where:{Deleted:false}});
       return { data: users, msg: 'Éxito', success: true };
     } catch (error) {
       console.error('Error al obtener usuarios:', error);

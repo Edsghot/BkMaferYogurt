@@ -5,6 +5,7 @@ import { resPaymentDto } from './request/reqPaymentDto.dto';
 import { CloudinaryService } from 'src/ServicesCloud/cloudinary/cloudinary.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FOLDER_PAYMENT } from 'src/Common/constants/constantService';
+import { DateRangeDto } from '../user/request/DateRangeDto.dto';
 
 @Controller('api/sale')
 export class SaleController {
@@ -49,5 +50,15 @@ export class SaleController {
     @Get('/failPayment/:IdCart/:IdUser')
     async Fail(@Param() params: resPaymentDto) {
         return await this.saleService.FailPayment(params);
+    }
+
+    @Get("/getSalesByDateRange")
+    async getSalesByDateRange(@Body() request: DateRangeDto) {
+      return await this.saleService.getSalesByDateRange(request);
+    }
+
+    @Get("/counts")
+    async counts() {
+      return await this.saleService.counts();
     }
 }

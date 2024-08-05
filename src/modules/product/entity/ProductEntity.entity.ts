@@ -31,4 +31,7 @@ export class Product {
 
   @OneToMany(() => SaleDetail, (saleDetail) => saleDetail.Product)
   SaleDetails: SaleDetail[];
+
+  @Column()
+  Deleted:boolean;
 }

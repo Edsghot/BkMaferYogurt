@@ -15,6 +15,7 @@ export class ProductService {
       async insertProduct(request: CreateProductRequest) {
         try {
           const newProduct = this.productRepository.create(request);
+          newProduct.Deleted=false;
           await this.productRepository.save(newProduct);
           return { msg: 'Producto insertado correctamente', success: true };
         } catch (error) {
@@ -52,7 +53,7 @@ export class ProductService {
     
       async getAllProducts() {
         try {
-          const products = await this.productRepository.find();
+          const products = await this.productRepository.find({where:{Deleted:false}});
           return { data: products, msg: 'Éxito', success: true };
         } catch (error) {
           console.error('Error al obtener productos:', error);
@@ -63,7 +64,7 @@ export class ProductService {
       async getProductById(productId: number) {
         try {
           const product = await this.productRepository.findOne({
-            where: { IdProduct: productId },
+            where: { IdProduct: productId,Deleted:false },
           });
     
           return product
@@ -77,7 +78,14 @@ export class ProductService {
     
       async deleteProduct(productId: number) {
         try {
-          await this.productRepository.delete(productId);
+          var product=await this.productRepository.findOne({
+            where:{IdProduct:productId}
+          });
+          if (!product){
+            return { msg: 'No se encontro producto', success: false };
+          }
+          product.Deleted=true;
+          await this.productRepository.save(product);
           return { msg: 'Producto eliminado exitosamente', success: true };
         } catch (error) {
           console.error('Error al eliminar producto:', error);
@@ -85,4 +93,23 @@ export class ProductService {
         }
       }
       //Hola mundo
+
+      async countProducts() {
+        try {
+          const result = await this.productRepository.query('SELECT COUNT(*) FROM product ');
+          const count = result[0]['COUNT(*)'];
+          return {
+            msg: 'Cantidad de productos',
+            count: count,
+            success: true,
+          };
+        } catch (error) {
+          console.error('Error obteniendo la cantidad de clientes:', error);
+          return {
+            msg: 'Error al recuperar la cantidad de clientes',
+            detailMsg: error.message,
+            success: false,
+      }; 
+        }
+      }
 }

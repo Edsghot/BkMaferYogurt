@@ -7,10 +7,14 @@ import { Cart } from '../cart/entity/CartEntity.entity';
 import { User } from '../user/entity/UserEntity.entity';
 import { AuthValidateService } from '../auth-validate/auth-validate.service';
 import { CloudinaryService } from 'src/ServicesCloud/cloudinary/cloudinary.service';
+import { ValidateEmailSmsEntity } from '../auth-validate/entity/ValidateEmailSms.entity';
+import { Product } from '../product/entity/ProductEntity.entity';
+import { CartItem } from '../cart/entity/CartItem.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Sale],),TypeOrmModule.forFeature([Cart]),TypeOrmModule.forFeature([User])
+    TypeOrmModule.forFeature([Sale],),TypeOrmModule.forFeature([Cart]),TypeOrmModule.forFeature([CartItem]),TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([ValidateEmailSmsEntity]),TypeOrmModule.forFeature([Product])
   ],
   providers: [SaleService,AuthValidateService,CloudinaryService],
   controllers: [SaleController]
