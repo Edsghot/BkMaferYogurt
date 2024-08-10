@@ -28,6 +28,7 @@ export class SaleService {
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
     private mailValidateService: AuthValidateService
+
   ) { }
 
   async insertSale(request: CreateSaleRequest) {
@@ -49,6 +50,8 @@ export class SaleService {
       } else {
         sale.Process = true;
       }
+
+
       sale.ShippingMethod = request.ShippingMethod;
       sale.PaymentMethod = request.PaymentMethod;
       sale.PaymentNumber = Math.floor(1000 + Math.random() * 9000).toString();
@@ -57,7 +60,6 @@ export class SaleService {
       sale.SaleDate = moment.tz('America/Lima').toDate();
       sale.idShipment = request.idShipment;
       sale.ImagePayment = request.ImagePayment;
-
 
       await this.saleRepository.save(sale);
       return { msg: 'Venta insertada correctamente', success: true };

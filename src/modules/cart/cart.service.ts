@@ -23,12 +23,12 @@ export class CartService {
     
       async insertProduct(request: CreateCartRequest) {
         try {
-            var user = await this.userRepository.findOne({where: {IdUser: request.IdUser}});
+            var user = await this.userRepository.findOne({where: {IdUser: request.IdUser,Deleted:false}});
             if(!user){
                 return {msg: "No se encontro el usuario", success: false}
             }
 
-            var product = await this.productRepository.findOne({where: {IdProduct: request.IdProduct}});
+            var product = await this.productRepository.findOne({where: {IdProduct: request.IdProduct,Deleted:false}});
 
             if(!product || product.Stock <= 0 || product.Stock <= request.Quantity){
                 return {msg: "No se encontro el producto o no tiene stock suficiente", success: false}
