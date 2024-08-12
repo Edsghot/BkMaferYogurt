@@ -1,4 +1,3 @@
-import { SaleDetail } from "src/modules/sale/entity/SaleDetail.entity";
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 @Entity()
 export class Product {
@@ -28,9 +27,6 @@ export class Product {
 
   @Column()
   Category:string;
-
-  @OneToMany(() => SaleDetail, (saleDetail) => saleDetail.Product)
-  SaleDetails: SaleDetail[];
 
   @Column()
   Deleted:boolean;

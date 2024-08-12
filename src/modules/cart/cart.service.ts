@@ -82,7 +82,7 @@ export class CartService {
 
       async getCartByUserId(userId: number){
         var user=await this.userRepository.findOne({
-          where:{IdUser:userId}
+          where:{IdUser:userId,Deleted:false}
         });
         if (!user) {
           return { msg: 'No se encontro usuario', success: false, data: null };
@@ -111,10 +111,14 @@ export class CartService {
         }
       }
 
-      async deleteAllItem(cartId: number) {
+      async deleteAllItem(userId: number) {
         try{
+          var user =await this.userRepository.findOne({where:{IdUser:userId,Deleted:false}});
+          if (!user) {
+            return { msg: 'No se encontro usuario', success: false, data: null };
+          }
         var cart= await this.cartRepository.findOne({
-          where:{IdCart:cartId}
+          where:{User:user,Deleted:false}
         });
         if(!cart){
           return { msg: 'No se encontro carrito', success: false, data: null };
@@ -135,7 +139,7 @@ export class CartService {
       async deleteCart(userId:number){
         try{
           var user=await this.userRepository.findOne({
-            where:{IdUser:userId}
+            where:{IdUser:userId,Deleted:false}
           })
           if(!user){
             return { msg: 'No se encontro usuario', success: false, data: null };
@@ -148,6 +152,7 @@ export class CartService {
           }
           cart.Deleted=true;
           await this.cartRepository.save(cart);
+          return { msg: 'El carrito eliminado exitosamente', success: true };
         }catch (error) {
           console.error('Error al eliminar todo el carrito:', error);
           return { msg: 'Error al eliminar todo el carrito', detailMsg: error.message, success: false };

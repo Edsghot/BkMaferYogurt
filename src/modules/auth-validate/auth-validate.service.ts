@@ -437,7 +437,7 @@ export class AuthValidateService {
             Hemos revisado el comprobante de pago adjunto y lamentablemente no
             podemos proceder con la confirmación de tu compra en este momento.
             Por favor, verifica nuevamente el voucher de pago adjunto y
-            asegúrate de que todos los detalles sean correctos.
+            asegúrate de que todos los detalles sean correctos. Y realice nuevamente la compra.
           </p>
         </div>
         
@@ -480,6 +480,11 @@ export class AuthValidateService {
         return res.resultOK("Se envio correctamente");
     }
     async sendMail(email: string){
+      const userMail = await this.userRepository.findOne({ where: { Mail: email,Deleted:false } });
+  
+      if (userMail) {
+        return { msg: "Ya se registró un usuario con ese EMAIL", success: false, data: null };
+      }
       var res = new ResMessage();
 
       var code = Math.floor(100000 + Math.random() * 900000).toString();

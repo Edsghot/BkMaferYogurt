@@ -27,7 +27,7 @@ export class ProductService {
       async updateProduct(updateProductDto: UpdateProductRequest) {
         try {
           const product = await this.productRepository.findOne({
-            where: { IdProduct: updateProductDto.IdProduct },
+            where: { IdProduct: updateProductDto.IdProduct,Deleted:false },
           });
     
           if (!product) {
@@ -79,7 +79,7 @@ export class ProductService {
       async deleteProduct(productId: number) {
         try {
           var product=await this.productRepository.findOne({
-            where:{IdProduct:productId}
+            where:{IdProduct:productId,Deleted:false}
           });
           if (!product){
             return { msg: 'No se encontro producto', success: false };

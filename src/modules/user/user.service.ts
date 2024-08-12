@@ -7,6 +7,9 @@ import { Repository } from 'typeorm';
 import { User } from './entity/UserEntity.entity';
 import * as moment from 'moment-timezone';
 import { DateRangeDto } from './request/DateRangeDto.dto';
+import { ValidateEmailDto } from './request/validateEmail.dto';
+import { ValidateEmailSmsEntity } from '../auth-validate/entity/ValidateEmailSms.entity';
+import { RecoverPasswordDto } from './request/recoverPassword.dto';
 
 @Injectable()
 export class UserService {
@@ -15,6 +18,8 @@ export class UserService {
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
         private validateService: ValidateService,
+        @InjectRepository(ValidateEmailSmsEntity)
+        private validateRepository: Repository<ValidateEmailSmsEntity>,
       ) {
       }
     
@@ -112,7 +117,6 @@ export class UserService {
   async getAllUsers() {
     try {
       const users = await this.userRepository.find({
-        select: ['IdUser', 'FirstName', 'LastName','Dni','Address','Phone','Mail','Rol','BirthDate'],
         where:{Deleted:false}});
       return { data: users, msg: 'Éxito', success: true };
     } catch (error) {
@@ -141,7 +145,7 @@ export class UserService {
   async getUserById(userId: number) {
     try {
       const user = await this.userRepository.findOne({
-        where: { IdUser: userId },
+        where: { IdUser: userId,Deleted:false },
       });
       return { data: user, msg: 'Éxito', success: true };
     } catch (error) {
@@ -154,12 +158,12 @@ export class UserService {
     try {
       let userRes;
       userRes = await this.userRepository.findOne({
-        where: { Mail: userRequest, Password: password },
+        where: { Mail: userRequest, Password: password,Deleted:false},
       });
   
       if (!userRes) {
         userRes = await this.userRepository.findOne({
-          where: { Dni: userRequest, Password: password },
+          where: { Dni: userRequest, Password: password, Deleted:false},
         });
   
         if (!userRes) {
@@ -204,23 +208,58 @@ export class UserService {
     };
   }
   }
+  
+  async validateCode(data: ValidateEmailDto) {
+    const { Email, Code } = data;
 
-  async countUsersCliente() {
-    try {
-      const result = await this.userRepository.query('SELECT COUNT(*) FROM user WHERE Rol=1');
-      const count = result[0]['COUNT(*)'];
+    var existing = await this.validateRepository.findOne({
+      where: { Email },
+    });
+
+    if (existing === null) {
+      return { msg: 'Error en validar el codigo', value: false };
+    }
+
+    if (existing.Code === Code) {
+      return { msg: 'Esta correcto', value: true };
+    }
+
+    return { msg: 'Error al validar código', value: false };
+  }
+  async recoverPassword(update: RecoverPasswordDto) {
+    var user = await this.userRepository.findOne({
+      where: { Mail: update.Email,Deleted:false },
+    });
+
+    if (user === null) {
       return {
-        msg: 'Cantidad de clientes',
-        count: count,
+        msg: 'No se encontro el usuario',
+        value: false,
+      };
+    }
+
+    if (!update.Password) {
+      return {
+        msg: 'Su nueva contraseña no tiene caracteres',
+        value: false,
+      };
+    }
+
+    try {
+      
+      user.Password = update.Password;
+
+      await this.userRepository.save(user);
+
+      return {
+        msg: 'se actualizo correctamente',
         success: true,
       };
-    } catch (error) {
-      console.error('Error obteniendo la cantidad de clientes:', error);
+    } catch (e) {
       return {
-        msg: 'Error al recuperar la cantidad de clientes',
-        detailMsg: error.message,
+        msg: 'Error al recuperar la contraseña',
         success: false,
-  }; 
+      };
     }
   }
 }

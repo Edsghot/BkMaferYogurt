@@ -1,8 +1,6 @@
 
-import { ShoppingCart } from "src/modules/product/entity/ShoppingCart.entity";
 import { User } from "src/modules/user/entity/UserEntity.entity";
 import { Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, Column, OneToMany } from "typeorm";
-import { SaleDetail } from "./SaleDetail.entity";
 import { Cart } from "src/modules/cart/entity/CartEntity.entity";
 
 // Sale Entity

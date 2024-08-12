@@ -5,6 +5,8 @@ import { CreateUserRequest } from './request/CreateUserRequest.request';
 import { UpdateUserRequest } from './request/UpdateUserRequest.request';
 import { LoginUserRequest } from './request/LoginUserRequest.request';
 import { DateRangeDto } from './request/DateRangeDto.dto';
+import { ValidateEmailDto } from './request/validateEmail.dto';
+import { RecoverPasswordDto } from './request/recoverPassword.dto';
 
 @Controller('api/user')
 export class UserController {
@@ -52,8 +54,13 @@ export class UserController {
       return await this.userService.getUserByDateRange(request);
     }
 
-    @Get("/countUsersCliente")
-    async countUsersCliente() {
-      return await this.userService.countUsersCliente();
+    @Post('validate')
+    async validateCode(@Body() data: ValidateEmailDto) {
+        var res = await this.userService.validateCode(data);
+        return res;
+  }
+    @Put('recoverPassword')
+    async recoverPassword(@Body() update: RecoverPasswordDto) {
+        return await this.userService.recoverPassword(update);
     }
 }
