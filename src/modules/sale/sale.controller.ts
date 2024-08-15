@@ -52,7 +52,7 @@ export class SaleController {
         return await this.saleService.FailPayment(params);
     }
 
-    @Get("/getSalesByDateRange")
+    @Post("/getSalesByDateRange")
     async getSalesByDateRange(@Body() request: DateRangeDto) {
       return await this.saleService.getSalesByDateRange(request);
     }

@@ -49,7 +49,7 @@ export class UserController {
         return await this.userService.login(loginDto.UserRequest, loginDto.Password);
     }
 
-    @Get("/getUserByDateRange")
+    @Post("/getUserByDateRange")
     async getUserByDateRange(@Body() request: DateRangeDto) {
       return await this.userService.getUserByDateRange(request);
     }
