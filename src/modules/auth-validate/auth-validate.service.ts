@@ -231,133 +231,149 @@ export class AuthValidateService {
     async sendPaymentSuccess(request: ReqSuccessDto){
         var res = new ResMessage();
 
-         await this.mailerService.sendMail(
-            {
-                to: request.Mail,
-                from: 'edsghotsolutions@gmail.com',
-                subject: `PAGO CONFIRMADO`,
-                text: 'welcome a edsghotSolutions',
-                html: `<div
-  style="
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-      'Lucida Sans', Arial, sans-serif;
-    background-color: #ffffff;
-    text-align: center;
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-  "
->
-  <div
-    style="
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    "
-  >
-    <div style="display: block; align-items: center; margin-bottom: 20px">
-      <img
-        src="https://img.freepik.com/premium-vector/gradient-code-logo-tagline-here_23-2148808179.jpg"
-        alt="Logo"
-        style="width: 50px; height: auto; margin-right: 10px"
-      />
-      <p
-        style="
-          font-family: Verdana, Geneva, Tahoma, sans-serif;
-          color: #0f0f0f;
-          font-size: 32px;
-          font-weight: bold;
-          margin: 10px 0;
-        "
-      >
-        CONTROLZ
-      </p>
-    </div>
-    <div style="display: block">
+          // Construir la lista de productos en HTML
+  const itemsHtml = request.items.map(item => `
+    <li>
+      Producto: ${item.Product.Name} <br>
+      Cantidad: ${item.Quantity} <br>
+      Fecha añadida: ${item.DateAdded.toDateString()}
+    </li>
+  `).join('');
+
+  await this.mailerService.sendMail({
+    to: request.Mail,
+    from: 'edsghotsolutions@gmail.com',
+    subject: `PAGO CONFIRMADO`,
+    text: 'welcome a edsghotSolutions',
+    html: `<div
+      style="
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+          'Lucida Sans', Arial, sans-serif;
+        background-color: #ffffff;
+        text-align: center;
+        font-size: 16px;
+        margin: 0;
+        padding: 0;
+      "
+    >
       <div
         style="
-          width: 80%;
-          max-width: 600px;
-          background-color: #0f0f0f;
-          color: #ffffff;
-          padding: 40px;
-          margin: 20px auto;
-          text-align: left;
-          border-radius: 6px;
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          height: 100vh;
         "
       >
-        <div>
+        <div style="display: block; align-items: center; margin-bottom: 20px">
+          <img
+            src="https://img.freepik.com/premium-vector/gradient-code-logo-tagline-here_23-2148808179.jpg"
+            alt="Logo"
+            style="width: 50px; height: auto; margin-right: 10px"
+          />
           <p
             style="
               font-family: Verdana, Geneva, Tahoma, sans-serif;
-              color: #fff;
-              font-size: 28px;
+              color: #0f0f0f;
+              font-size: 32px;
               font-weight: bold;
               margin: 10px 0;
             "
           >
-            ¡Hola ${request.user}! 🚀
-          </p>
-          <p style="color: #fff">
-            Hemos revisado el comprobante de pago adjunto y nos complace
-            informarte que tu compra ha sido aceptada. 🎉
+            CONTROLZ
           </p>
         </div>
-        <hr />
-        <div style="margin-top: 30px; font-size: 16px; color: #fff">
-          <p>
-            ¿Necesitas ayuda? Contacta con nuestro equipo de soporte técnico
-            <a
-              href="https://jheysonjhairpro.ccontrolz.com/"
-              target="_blank"
-              style="
-                color: #f92f60;
-                text-decoration: none;
-                font-weight: bold;
-                font-size: 14px;
-              "
-              >aquí</a
-            >. ¿Quieres darnos tu opinión? ¡Dinos lo que piensas en nuestra
-            <a
-              href="https://jheysonjhairpro.ccontrolz.com/"
-              target="_blank"
-              style="
-                color: #f92f60;
-                text-decoration: none;
-                font-weight: bold;
-                font-size: 14px;
-              "
-              >página de opiniones</a
-            >.
-          </p>
-        </div>
-      </div>
-      <div style="margin-top: 30px; font-size: 13px; color: #000">
-        <p>
-          Enviado por Developers,
-          <a
-            href="https://jheysonjhairpro.ccontrolz.com/"
-            target="_blank"
+        <div style="display: block">
+          <div
             style="
-              color: #f92f60;
-              text-decoration: none;
-              font-weight: bold;
-              font-size: 14px;
+              width: 80%;
+              max-width: 600px;
+              background-color: #0f0f0f;
+              color: #ffffff;
+              padding: 40px;
+              margin: 20px auto;
+              text-align: left;
+              border-radius: 6px;
+              box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
             "
-            >consulta nuestro blog</a
           >
-          De CONTROLZ, Perú 2024
-        </p>
+            <div>
+              <p
+                style="
+                  font-family: Verdana, Geneva, Tahoma, sans-serif;
+                  color: #fff;
+                  font-size: 28px;
+                  font-weight: bold;
+                  margin: 10px 0;
+                "
+              >
+                ¡Hola ${request.user}! 🚀
+              </p>
+              <p style="color: #fff">
+                Hemos revisado el comprobante de pago adjunto y nos complace
+                informarte que tu compra ha sido aceptada. 🎉
+              </p>
+              <p style="color: #fff">
+                A continuación, los detalles de tu compra:
+              </p>
+              <ul style="color: #fff; list-style-type: none; padding: 0;">
+                ${itemsHtml}
+              </ul>
+              <p style="color: #fff">
+              El Total: ${request.total}
+              </p>
+            </div>
+            <hr />
+            <div style="margin-top: 30px; font-size: 16px; color: #fff">
+              <p>
+                ¿Necesitas ayuda? Contacta con nuestro equipo de soporte técnico
+                <a
+                  href="https://jheysonjhairpro.ccontrolz.com/"
+                  target="_blank"
+                  style="
+                    color: #f92f60;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 14px;
+                  "
+                  >aquí</a
+                >. ¿Quieres darnos tu opinión? ¡Dinos lo que piensas en nuestra
+                <a
+                  href="https://jheysonjhairpro.ccontrolz.com/"
+                  target="_blank"
+                  style="
+                    color: #f92f60;
+                    text-decoration: none;
+                    font-weight: bold;
+                    font-size: 14px;
+                  "
+                  >página de opiniones</a
+                >.
+              </p>
+            </div>
+          </div>
+          <div style="margin-top: 30px; font-size: 13px; color: #000">
+            <p>
+              Enviado por Developers,
+              <a
+                href="https://jheysonjhairpro.ccontrolz.com/"
+                target="_blank"
+                style="
+                  color: #f92f60;
+                  text-decoration: none;
+                  font-weight: bold;
+                  font-size: 14px;
+                "
+                >consulta nuestro blog</a
+              >
+              De CONTROLZ, Perú 2024
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>`,
-            }
-        )
-        return res.resultOK("Se envio correctamente");
+    </div>`,
+    });
+  return res.resultOK("Se envio correctamente");
     }
 
     async sendPaymentError(request: ReqErrorDto){

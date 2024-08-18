@@ -80,6 +80,8 @@ export class SaleService {
         var res = new ReqSuccessDto();
         res.Mail = user.Mail;
         res.user = user.FirstName;
+        res.items = cart.Items;
+        res.total = sale.Total;
 
       await this.mailValidateService.sendPaymentSuccess(res);
       }
