@@ -35,192 +35,125 @@ export class AuthValidateService {
                 to: CORREO,
                 from: 'jhedgost@gmail.com',
                 subject: `PAGO POR ACEPTAR....`,
-                text: 'welcome a jhedgost',
+                text: 'Welcome a Agroindustrias Mafer',
                 html: `<div
   style="
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-      'Lucida Sans', Arial, sans-serif;
-    background-color: #ffffff;
-    text-align: center;
-    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
   "
 >
   <div
     style="
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     "
   >
-    <div style="display: block; align-items: center; margin-bottom: 20px">
-      <img
-        src="https://img.freepik.com/premium-vector/gradient-code-logo-tagline-here_23-2148808179.jpg"
-        alt="Logo"
-        style="width: 50px; height: auto; margin-right: 10px"
-      />
-      <p
-        style="
-          font-family: Verdana, Geneva, Tahoma, sans-serif;
-          color: #0f0f0f;
-          font-size: 32px;
-          font-weight: bold;
-          margin: 10px 0;
-        "
-      >
-        CONTROLZ
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 15px;
+        background-color: #c04751;
+        border-bottom: 2px solid #f0f0f0;
+      "
+    >
+      <h1 style="font-size: 24px; margin: 0; font-weight: bolder">
+        <span style="color: #fff">AGROINDUSTRIAS MAFER</span>
+      </h1>
+    </div>
+    <div style="padding: 20px; text-align: justify">
+      <h2 style="font-size: 22px; color: #333333">
+        <span style="color: #1a7eb9">Hola, </span> ${CORREO} 🚀
+      </h2>
+      <p style="font-size: 16px; color: #555555">
+        Has recibido una solicitud de compra para productos. 📝 Te solicitamos
+        revisar detalladamente el comprobante de pago adjunto para proceder con
+        la confirmación de compra. Una vez verificado el voucher de pago,
+        procederemos a completar la solicitud. ✅
+      </p>
+      <div style="margin-top: 30px; font-size: 16px; color: #000">
+        <p>
+          <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
+            >Nombres:</span
+          >${user.FirstName} <br />
+          <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
+            >Apellidos:</span
+          >
+          ${user.LastName} <br />
+          <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
+            >Teléfono:</span
+          >
+          ${user.Phone} <br />
+          <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
+            >Gmail:</span
+          >
+          ${user.Mail} <br />
+          <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
+            >Total:</span
+          >${request.Total} <br />
+          <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
+            >Voucher:</span
+          >
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ8kyVL0IEHIqgTF3YtHhaxwmCQuq6LcY9Xw&s"
+            alt="User Image"
+            style="width: 300px; height: auto; margin-left: 10px"
+          />
+        </p>
+        <div style="display: flex; justify-content: flex-end; margin-top: 20px">
+          <a
+            href="https://bkmaferyogurt-production.up.railway.app/api/sale/acceptPayment/${request.IdCart}/${request.IdUser}"
+            style="
+              background-color: #f92f60;
+              color: #ffffff;
+              margin-right: 10px;
+              border: none;
+              padding: 10px 20px;
+              font-size: 16px;
+              cursor: pointer;
+              border-radius: 4px;
+            "
+          >
+            Confirmar Compra
+          </a>
+          <a
+            href="https://bkmaferyogurt-production.up.railway.app/api/sale/failPayment/${request.IdCart}/${request.IdUser}"
+            style="
+              background-color: #333;
+              color: #ffffff;
+              border: none;
+              padding: 10px 20px;
+              font-size: 16px;
+              cursor: pointer;
+              border-radius: 4px;
+            "
+          >
+            Rechazar Compra
+          </a>
+        </div>
+      </div>
+    </div>
+    <div
+      style="
+        text-align: center;
+        padding: 5px;
+        background-color: #575d5e;
+        border-top: 2px solid #f0f0f0;
+      "
+    >
+      <p style="font-size: 14px; color: #fff; margin: 10px 0">
+        Enviado por JHEDGOST
       </p>
     </div>
-    <div style="display: block;">
-        <div
-        style="
-        display: block;
-          width: 80%;
-          max-width: 600px;
-          background-color: #0f0f0f;
-          color: #ffffff;
-          padding: 40px;
-          margin: 20px auto;
-          text-align: left;
-          border-radius: 6px;
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        "
-      >
-        <div>
-          <p
-            style="
-              font-family: Verdana, Geneva, Tahoma, sans-serif;
-              color: #fff;
-              font-size: 28px;
-              font-weight: bold;
-              margin: 10px 0;
-            "
-          >
-            ¡Hola! ${CORREO} 🚀
-          </p>
-          <p style="color: #fff">
-            Has recibido una solicitud de compra para productos. 📝 Te solicitamos
-            revisar detalladamente el comprobante de pago adjunto para proceder
-            con la confirmación de compra. Una vez verificado el voucher de pago,
-            procederemos a completar la solicitud. ✅
-          </p>
-        </div>
-        <hr />
-        <div style="margin-top: 30px; font-size: 16px; color: #fff">
-          <p>
-            <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
-              >Nombres:</span
-            >${user.FirstName} <br />
-            <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
-              >Apellidos:</span
-            >
-            ${user.LastName} <br />
-            <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
-              >Dni:</span
-            >
-            ${user.Dni} <br />
-            <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
-              >Teléfono:</span
-            >
-            ${user.Phone} <br />
-            <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
-              >Gmail:</span
-            >
-            ${user.Mail} <br />
-            <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
-              >Total:</span
-            >${request.Total} <br />
-            <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
-              >Voucher:</span
-            >
-            <img
-              src= ${request.ImagePayment}
-              alt="User Image"
-              style="width: 300px; height: auto; margin-left: 10px"
-            />
-          </p>
-          <div style="display: flex; justify-content: flex-end; margin-top: 20px">
-            <a
-              href="https://bkmaferyogurt-production.up.railway.app/api/sale/acceptPayment/${request.IdCart}/${request.IdUser}"
-              style="
-                background-color: #f92f60;
-                color: #ffffff;
-                margin-right: 10px;
-                border: none;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                border-radius: 4px;
-              "
-            >
-              Confirmar Compra
-          </a>
-            <a
-            href="https://bkmaferyogurt-production.up.railway.app/api/sale/failPayment/${request.IdCart}/${request.IdUser}"
-              style="
-                background-color: #333;
-                color: #ffffff;
-                border: none;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                border-radius: 4px;
-              "
-            >
-              Rechazar Compra
-          </a>
-          </div>
-  
-          <p style="margin-top: 20px; color: #fff">
-            ¿Necesitas ayuda? Contacta con nuestro equipo de soporte técnico
-            <a
-              href="https://jheysonjhairpro.ccontrolz.com/"
-              target="_blank"
-              style="
-                color: #f92f60;
-                text-decoration: none;
-                font-weight: bold;
-                font-size: 14px;
-              "
-              >aquí</a
-            >. ¿Quieres darnos tu opinión? ¡Dinos lo que piensas en nuestra
-            <a
-              href="https://jheysonjhairpro.ccontrolz.com/"
-              target="_blank"
-              style="
-                color: #f92f60;
-                text-decoration: none;
-                font-weight: bold;
-                font-size: 14px;
-              "
-              >página de opiniones</a
-            >.
-          </p>
-        </div>
-      </div>
-      <div style="display:block, 30px; font-size: 13px; color: #000">
-        <p>
-          Enviado por Developers,
-          <a
-            href="https://jheysonjhairpro.ccontrolz.com/"
-            target="_blank"
-            style="
-              color: #f92f60;
-              text-decoration: none;
-              font-weight: bold;
-              font-size: 14px;
-            "
-            >consulta nuestro blog</a
-          >
-          De CONTROLZ, Perú 2024
-        </p>
-      </div>
-    </div>
   </div>
-</div>`,
+</div>
+`,
             }
         )
         return res.resultOK("Se envio correctamente");
@@ -258,145 +191,117 @@ export class AuthValidateService {
     to: request.Mail,
     from: 'jhedgost@gmail.com',
     subject: `PAGO CONFIRMADO`,
-    text: 'welcome a jhedgost',
+    text: 'welcome a Agroindustrias Mafer',
     html: `<div
+  style="
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  "
+>
+  <div
+    style="
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <div
       style="
-        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-          'Lucida Sans', Arial, sans-serif;
-        background-color: #ffffff;
-        text-align: center;
-        font-size: 16px;
-        margin: 0;
-        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 15px;
+        background-color: #c04751;
+        border-bottom: 2px solid #f0f0f0;
       "
     >
+      <h1 style="font-size: 24px; margin: 0; font-weight: bolder">
+        <span style="color: #fff">YOGURT MAFER</span>
+      </h1>
+    </div>
+    <div style="padding: 20px; text-align: justify">
+      <h2 style="font-size: 22px; color: #333333">
+        <span style="color: #c04751">Hola, </span> ${request.User}! 🚀
+      </h2>
+      <p style="font-size: 16px; color: #555555">
+        Hemos revisado el comprobante de pago adjunto y nos complace informarte
+        que tu compra ha sido aceptada. 🎉
+      </p>
+
       <div
         style="
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
+          margin-top: 20px;
+          padding: 20px;
+          border: 1px dashed #c0c0c0;
+          background-color: #ffffff;
+          text-align: center;
         "
       >
-        <div style="display: block; align-items: center; margin-bottom: 20px">
-          <img
-            src="https://img.freepik.com/premium-vector/gradient-code-logo-tagline-here_23-2148808179.jpg"
-            alt="Logo"
-            style="width: 50px; height: auto; margin-right: 10px"
-          />
-          <p
-            style="
-              font-family: Verdana, Geneva, Tahoma, sans-serif;
-              color: #0f0f0f;
-              font-size: 32px;
-              font-weight: bold;
-              margin: 10px 0;
-            "
-          >
-            CONTROLZ
+        <p style="color: #c04751; font-weight: bold; font-size: 18px">
+          🧾 Detalles de tu compra:
+        </p>
+
+        <p style="color: #000; margin: 5px 0">
+          <strong>Método de envío:</strong> ${metodoEnvio} <br />
+          <strong>Ubicación:</strong> ${ubicacion}
+        </p>
+
+        <p style="color: #000; margin: 5px 0">
+          <strong>Método de pago:</strong> ${metodoPago}
+        </p>
+
+        <ul
+          style="
+            color: #000;
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0;
+            text-align: left;
+          "
+        >
+          ${itemsHtml}
+        </ul>
+
+        <p style="color: #000; margin: 10px 0; font-weight: bold">
+          Total: ${request.Total}
+        </p>
+
+        <div
+          style="
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 1px solid #c0c0c0;
+            font-size: 12px;
+            color: #777777;
+          "
+        >
+          <p style="margin: 0">[───────────── Corte aquí ─────────────]</p>
+          <p style="margin: 0">
+            Este es tu comprobante de compra. ¡Gracias por tu compra en Yogurt
+            Mafer!
           </p>
         </div>
-        <div style="display: block">
-          <div
-            style="
-              width: 80%;
-              max-width: 600px;
-              background-color: #0f0f0f;
-              color: #ffffff;
-              padding: 40px;
-              margin: 20px auto;
-              text-align: left;
-              border-radius: 6px;
-              box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            "
-          >
-            <div>
-              <p
-                style="
-                  font-family: Verdana, Geneva, Tahoma, sans-serif;
-                  color: #fff;
-                  font-size: 28px;
-                  font-weight: bold;
-                  margin: 10px 0;
-                "
-              >
-                ¡Hola ${request.User}! 🚀
-              </p>
-              <p style="color: #fff">
-                Hemos revisado el comprobante de pago adjunto y nos complace
-                informarte que tu compra ha sido aceptada. 🎉
-              </p>
-              <p style="color: #fff">
-                A continuación, los detalles de tu compra:
-              </p>
-              
-              <p style="color: #fff">
-              Metodo de envio: ${metodoEnvio} - Ubicacion: ${ubicacion}
-              </p>
-              
-              <p style="color: #fff">
-                Metodo de pago: ${metodoPago}
-              </p>
-              
-              <ul style="color: #fff; list-style-type: none; padding: 0;">
-                ${itemsHtml}
-              </ul>
-              
-              <p style="color: #fff">
-              El Total: ${request.Total}
-              </p>
-              
-            </div>
-            <hr />
-            <div style="margin-top: 30px; font-size: 16px; color: #fff">
-              <p>
-                ¿Necesitas ayuda? Contacta con nuestro equipo de soporte técnico
-                <a
-                  href="https://jheysonjhairpro.ccontrolz.com/"
-                  target="_blank"
-                  style="
-                    color: #f92f60;
-                    text-decoration: none;
-                    font-weight: bold;
-                    font-size: 14px;
-                  "
-                  >aquí</a
-                >. ¿Quieres darnos tu opinión? ¡Dinos lo que piensas en nuestra
-                <a
-                  href="https://jheysonjhairpro.ccontrolz.com/"
-                  target="_blank"
-                  style="
-                    color: #f92f60;
-                    text-decoration: none;
-                    font-weight: bold;
-                    font-size: 14px;
-                  "
-                  >página de opiniones</a
-                >.
-              </p>
-            </div>
-          </div>
-          <div style="margin-top: 30px; font-size: 13px; color: #000">
-            <p>
-              Enviado por Developers,
-              <a
-                href="https://jheysonjhairpro.ccontrolz.com/"
-                target="_blank"
-                style="
-                  color: #f92f60;
-                  text-decoration: none;
-                  font-weight: bold;
-                  font-size: 14px;
-                "
-                >consulta nuestro blog</a
-              >
-              De CONTROLZ, Perú 2024
-            </p>
-          </div>
-        </div>
       </div>
-    </div>`,
+    </div>
+    <div
+      style="
+        text-align: center;
+        padding: 5px;
+        background-color: #575d5e;
+        border-top: 2px solid #f0f0f0;
+      "
+    >
+      <p style="font-size: 14px; color: #fff; margin: 10px 0">
+        Enviado por JHEDGOST
+      </p>
+    </div>
+  </div>
+</div>
+`,
     });
   return res.resultOK("Se envio correctamente");
     }
@@ -409,113 +314,74 @@ export class AuthValidateService {
                 to: request.Mail,
                 from: 'jhedgost@gmail.com',
                 subject: `PAGO ERRONEO`,
-                text: 'welcome a jhegost',
+                text: 'Welcome a Agroindustrias Mafer',
                 html: `<div
   style="
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
-      'Lucida Sans', Arial, sans-serif;
-    background-color: #ffffff;
-    text-align: center;
-    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
   "
 >
   <div
     style="
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     "
   >
-    <div style="display: block; align-items: center; margin-bottom: 20px">
-      <img
-        src="https://img.freepik.com/premium-vector/gradient-code-logo-tagline-here_23-2148808179.jpg"
-        alt="Logo"
-        style="width: 50px; height: auto; margin-right: 10px"
-      />
-      <p
-        style="
-          font-family: Verdana, Geneva, Tahoma, sans-serif;
-          color: #0f0f0f;
-          font-size: 32px;
-          font-weight: bold;
-          margin: 10px 0;
-        "
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 15px;
+        background-color: #c04751;
+        border-bottom: 2px solid #f0f0f0;
+      "
+    >
+      <h1 style="font-size: 24px; margin: 0; font-weight: bolder">
+        <span style="color: #fff">AGROINDUSTRIAS MAFER</span>
+      </h1>
+    </div>
+    <div style="padding: 20px; text-align: justify">
+      <h2 style="font-size: 22px; color: #333333">
+        <span style="color: #c04751">Hola, </span> ${request.user}! 🚀
+      </h2>
+      <p style="font-size: 16px; color: #555555">
+        Hemos revisado el comprobante de pago adjunto y lamentablemente no
+        podemos proceder con la confirmación de tu compra en este momento. ❌
+        Por favor, verifica nuevamente el voucher de pago adjunto y asegúrate de
+        que todos los detalles sean correctos. 📝 Y realiza nuevamente la
+        compra. 🛒
+      </p>
+
+      <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
+        >Voucher:</span
       >
-        CONTROLZ
+      <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ8kyVL0IEHIqgTF3YtHhaxwmCQuq6LcY9Xw&s"
+        alt="User Image"
+        style="width: 300px; height: auto; margin-left: 10px"
+      />
+    </div>
+    <div
+      style="
+        text-align: center;
+        padding: 5px;
+        background-color: #575d5e;
+        border-top: 2px solid #f0f0f0;
+      "
+    >
+      <p style="font-size: 14px; color: #fff; margin: 10px 0">
+        Enviado por JHEDGOST
       </p>
     </div>
-    <div style="display: block">
-      <div
-        style="
-          width: 80%;
-          max-width: 600px;
-          background-color: #0f0f0f;
-          color: #ffffff;
-          padding: 40px;
-          margin: 20px auto;
-          text-align: left;
-          border-radius: 6px;
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        "
-      >
-        <div>
-          <p
-            style="
-              font-family: Verdana, Geneva, Tahoma, sans-serif;
-              color: #fff;
-              font-size: 28px;
-              font-weight: bold;
-              margin: 10px 0;
-            "
-          >
-            ¡Hola ${request.user}! 🚀
-          </p>
-          <p style="color: #fff">
-            Hemos revisado el comprobante de pago adjunto y lamentablemente no
-            podemos proceder con la confirmación de tu compra en este momento.
-            Por favor, verifica nuevamente el voucher de pago adjunto y
-            asegúrate de que todos los detalles sean correctos. Y realice nuevamente la compra.
-          </p>
-        </div>
-        
-        <hr />
-        <div style="margin-top: 30px; font-size: 16px; color: #fff">
-          <p>
-            <span style="font-weight: bold; color: #f92f60; margin-bottom: 13px"
-              >Voucher:</span
-            >
-            <img
-              src=${request.Img}
-              alt="User Image"
-              style="width: 200px; height: auto; margin-left: 10px"
-            />
-          </p>
-        </div>
-      </div>
-      <div style="margin-top: 30px; font-size: 13px; color: #000">
-        <p>
-          Enviado por Developers,
-          <a
-            href="https://jheysonjhairpro.ccontrolz.com/"
-            target="_blank"
-            style="
-              color: #f92f60;
-              text-decoration: none;
-              font-weight: bold;
-              font-size: 14px;
-            "
-            >consulta nuestro blog</a
-          >
-          De CONTROLZ, Perú 2024
-        </p>
-      </div>
-    </div>
   </div>
-</div>`,
+</div>
+`,
             }
         )
         return res.resultOK("Se envio correctamente");
@@ -551,8 +417,104 @@ export class AuthValidateService {
               to: email,
               from: 'jhedgost@gmail.com',
               subject: `Tu código de verificación es: ${code}`,
-              text: 'welcome jhedgost',
-              html: ` <div style=" font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; background-color: #f9f9f9; text-align: center; font-size: 16px; height: 100vh; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; " > <div> <div style=" display: flex; justify-content: center; align-items: center; flex-direction: row; " > <img src="https://thumbs.dreamstime.com/b/fast-initial-letter-logo-vector-wing-da-todz-143202718.jpg" alt="Dizzgo Logo" style="width: 50px; height: auto; border-radius: 50%" /> <p style=" font-family: Verdana, Geneva, Tahoma, sans-serif; color: #40a5e7; font-size: 25px; font-weight: bold; margin: 10px 0; " > Dizzgo </p> </div> <div style=" width: 40%; background-color: #161b21; color: #a3aabf; padding: 40px; margin: 20px auto; text-align: left; border-radius: 6px; " > <div> <p style="color: #ffffff; font-weight: bold; font-size: 20px"> Hey ${nameEmail} </p> <p style="margin-top: 8px;;margin-bottom: 8px;"> ¡Gracias por registrarte para obtener una cuenta en Dizzgo! Antes de comenzar, solo necesitamos confirmar que eres tú. Copia el siguiente código e introdúce en la aplicación para verificar su dirección de correo electrónico: </p> <div style=" display: inline-block; border-radius: 8px; background-color: #40a5e7; color: #fff; padding: 10px; font-size: 20px; font-weight: bold; margin-top: 15px; margin-bottom: 15px; " > <p style="margin: 0;">${code}</p> </div> </div> <hr /> <div style="margin-top: 30px"> <p style="margin-top: 8px;;margin-bottom: 8px;"> ¿Necesitas ayuda? <a style="color: #40a5e7" href="https://jheysonjhairpro.ccontrolz.com/" target="_blank" >Contacta con nuestro equipo de soporte técnico</a >. ¿Quieres darnos tu opinión? ¡Dinos lo que piensas en nuestra <a style="color: #40a5e7" href="https://jheysonjhairpro.ccontrolz.com/" target="_blank" >página de opiniones</a >. </p> </div> </div> <div style=" font-size: 13px; color: #a1b0ba; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; " > <p> Enviado por Dizgo <a style="color: #40a5e7" href="https://jheysonjhairpro.ccontrolz.com/" target="_blank" >Consulta nuestro blog</a > De ControlZ , Perú 2024 </p> </div> </div> </div>`,
+              text: 'Welcome Agroindustrias Mafer',
+              html: ` <div
+  style="
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  "
+>
+  <div
+    style="
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 20px;
+        background-color: #eff2f4;
+        border-bottom: 2px solid #f0f0f0;
+      "
+    >
+      <img
+        src="https://scontent.fcuz2-1.fna.fbcdn.net/v/t39.30808-6/453225652_122098852514446614_3798487310496189578_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeETJa3-PU2tlhpW02etEUcxjJJeoxVqpSWMkl6jFWqlJUSgxlpPnt3VFTQBE7MmQTSi0zoKI7DNQk4DusrvsWA4&_nc_ohc=GqeR4mWgmjoQ7kNvgHKE4_s&_nc_ht=scontent.fcuz2-1.fna&oh=00_AYDutvSCSbAhs_H-894s2oZOZ_nUdFqh7yUoGeuBUcU3zw&oe=66C87F51"
+        alt="Platzi Logo"
+        style="
+          margin-right: 10px;
+          width: 50px;
+          height: auto;
+          border-radius: 20%;
+        "
+      />
+      <h1 style="font-size: 24px; margin: 0; font-weight: bolder">
+        <span style="color: #10446f">JHED</span>
+        <span style="color: #1a7eb9">GOST</span>
+      </h1>
+    </div>
+    <div style="padding: 20px; text-align: justify">
+      <h2 style="font-size: 22px; color: #333333">
+        <span style="color: #1a7eb9">Hola, </span> {JHAIRCITO}
+      </h2>
+      <p style="font-size: 16px; color: #555555">
+        ✅ ¡Gracias por registrarte para obtener una cuenta en Agroindustrias Mafer! ⭐
+        Antes de comenzar, necesitamos confirmar tu identidad. Por favor, copia
+        el siguiente código e introdúcelo en la aplicación para verificar tu
+        dirección de correo electrónico: ⬇️🔑
+      </p>
+      <div
+        style="
+          background-color: #eff2f4;
+          padding: 5px;
+          border-radius: 8px;
+          margin-top: 10px;
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333333;
+        "
+      >
+        <p>{988776}</p>
+      </div>
+    </div>
+    <div
+      style="
+        text-align: center;
+        padding: 20px;
+        background-color: #27567d;
+        border-top: 2px solid #f0f0f0;
+      "
+    >
+      <p style="font-size: 14px; color: #fff; margin: 10px 0">
+        Nunca pares de aprender,<br />
+        Team JhedGost.
+      </p>
+      <img
+        src="https://scontent.fcuz2-1.fna.fbcdn.net/v/t39.30808-6/453225652_122098852514446614_3798487310496189578_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeETJa3-PU2tlhpW02etEUcxjJJeoxVqpSWMkl6jFWqlJUSgxlpPnt3VFTQBE7MmQTSi0zoKI7DNQk4DusrvsWA4&_nc_ohc=GqeR4mWgmjoQ7kNvgHKE4_s&_nc_ht=scontent.fcuz2-1.fna&oh=00_AYDutvSCSbAhs_H-894s2oZOZ_nUdFqh7yUoGeuBUcU3zw&oe=66C87F51"
+        alt="Platzi Logo"
+        style="
+          margin-top: 20px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+        "
+      />
+      <p style="font-size: 14px; color: #fff; margin: 10px 0">
+        Enviado por JHEDGOST Av. Manuel Olguin Nro. 325, Abancay, Perú 2024
+      </p>
+    </div>
+  </div>
+</div>
+`,
           }
       )
       
@@ -585,8 +547,104 @@ export class AuthValidateService {
               to: email,
               from: 'jhedgost@gmail.com',
               subject: `Tu código de recuperación es: ${code}`,
-              text: 'Recuperacion de contraseña jhedgost',
-              html: ` <div style=" font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; background-color: #f9f9f9; text-align: center; font-size: 16px; height: 100vh; margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; " > <div> <div style=" display: flex; justify-content: center; align-items: center; flex-direction: row; " > <img src="https://thumbs.dreamstime.com/b/fast-initial-letter-logo-vector-wing-da-todz-143202718.jpg" alt="Dizzgo Logo" style="width: 50px; height: auto; border-radius: 50%" /> <p style=" font-family: Verdana, Geneva, Tahoma, sans-serif; color: #40a5e7; font-size: 25px; font-weight: bold; margin: 10px 0; " > Dizzgo </p> </div> <div style=" width: 40%; background-color: #161b21; color: #a3aabf; padding: 40px; margin: 20px auto; text-align: left; border-radius: 6px; " > <div> <p style="color: #ffffff; font-weight: bold; font-size: 20px"> Hey ${nameEmail} </p> <p style="margin-top: 8px;;margin-bottom: 8px;"> Le proporcionamos el código de verificación para recuperar su contraseña. Por favor, utilícelo en la aplicación correspondiente para verificar su dirección de correo electrónico: </p> <div style=" display: inline-block; border-radius: 8px; background-color: #40a5e7; color: #fff; padding: 10px; font-size: 20px; font-weight: bold; margin-top: 15px; margin-bottom: 15px; " > <p style="margin: 0;">${code}</p> </div> </div> <hr /> <div style="margin-top: 30px"> <p style="margin-top: 8px;;margin-bottom: 8px;"> ¿Necesitas ayuda? <a style="color: #40a5e7" href="https://jheysonjhairpro.ccontrolz.com/" target="_blank" >Contacta con nuestro equipo de soporte técnico</a >. ¿Quieres darnos tu opinión? ¡Dinos lo que piensas en nuestra <a style="color: #40a5e7" href="https://jheysonjhairpro.ccontrolz.com/" target="_blank" >página de opiniones</a >. </p> </div> </div> <div style=" font-size: 13px; color: #a1b0ba; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; " > <p> Enviado por Dizgo <a style="color: #40a5e7" href="https://jheysonjhairpro.ccontrolz.com/" target="_blank" >Consulta nuestro blog</a > De ControlZ , Perú 2024 </p> </div> </div> </div>`,
+              text: 'Recuperacion de contraseña Agroindutrias Mafer',
+              html: ` <div
+  style="
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  "
+>
+  <div
+    style="
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <div
+      style="
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 20px;
+        background-color: #eff2f4;
+        border-bottom: 2px solid #f0f0f0;
+      "
+    >
+      <img
+        src="https://scontent.fcuz2-1.fna.fbcdn.net/v/t39.30808-6/453225652_122098852514446614_3798487310496189578_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeETJa3-PU2tlhpW02etEUcxjJJeoxVqpSWMkl6jFWqlJUSgxlpPnt3VFTQBE7MmQTSi0zoKI7DNQk4DusrvsWA4&_nc_ohc=GqeR4mWgmjoQ7kNvgHKE4_s&_nc_ht=scontent.fcuz2-1.fna&oh=00_AYDutvSCSbAhs_H-894s2oZOZ_nUdFqh7yUoGeuBUcU3zw&oe=66C87F51"
+        alt="Platzi Logo"
+        style="
+          margin-right: 10px;
+          width: 50px;
+          height: auto;
+          border-radius: 20%;
+        "
+      />
+      <h1 style="font-size: 24px; margin: 0; font-weight: bolder">
+        <span style="color: #10446f">JHED</span>
+        <span style="color: #1a7eb9">GOST</span>
+      </h1>
+    </div>
+    <div style="padding: 20px; text-align: justify">
+      <h2 style="font-size: 22px; color: #333333">
+        <span style="color: #1a7eb9">Hola, </span> {JHAIRCITO}
+      </h2>
+      <p style="font-size: 16px; color: #555555">
+        Le proporcionamos el código de verificación 🔒 para recuperar su
+        contraseña. Por favor, utilícelo en la aplicación correspondiente para
+        verificar su dirección de correo electrónico: ⬇️
+      </p>
+
+      <div
+        style="
+          background-color: #eff2f4;
+          padding: 5px;
+          border-radius: 8px;
+          margin-top: 10px;
+          text-align: center;
+          font-size: 24px;
+          font-weight: bold;
+          color: #333333;
+        "
+      >
+        <p>{988776}</p>
+      </div>
+    </div>
+    <div
+      style="
+        text-align: center;
+        padding: 20px;
+        background-color: #27567d;
+        border-top: 2px solid #f0f0f0;
+      "
+    >
+      <p style="font-size: 14px; color: #fff; margin: 10px 0">
+        Nunca pares de aprender,<br />
+        Team JhedGost.
+      </p>
+      <img
+        src="https://scontent.fcuz2-1.fna.fbcdn.net/v/t39.30808-6/453225652_122098852514446614_3798487310496189578_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeETJa3-PU2tlhpW02etEUcxjJJeoxVqpSWMkl6jFWqlJUSgxlpPnt3VFTQBE7MmQTSi0zoKI7DNQk4DusrvsWA4&_nc_ohc=GqeR4mWgmjoQ7kNvgHKE4_s&_nc_ht=scontent.fcuz2-1.fna&oh=00_AYDutvSCSbAhs_H-894s2oZOZ_nUdFqh7yUoGeuBUcU3zw&oe=66C87F51"
+        alt="Platzi Logo"
+        style="
+          margin-top: 20px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          object-fit: cover;
+        "
+      />
+      <p style="font-size: 14px; color: #fff; margin: 10px 0">
+        Enviado por JHEDGOST Av. Manuel Olguin Nro. 325, Abancay, Perú 2024
+      </p>
+    </div>
+  </div>
+</div>
+`,
           }
       )
       
