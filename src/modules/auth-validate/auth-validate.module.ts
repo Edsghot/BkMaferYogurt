@@ -14,8 +14,8 @@ import { ValidateEmailSmsEntity } from './entity/ValidateEmailSms.entity';
         transport: {
           service: 'gmail',
           auth:{
-            user: 'edsghotsolutions@gmail.com',
-            pass: 'utbrdntnpnttvumd'
+            user: 'jhedgost@gmail.com',
+            pass: 'sjtxhfmavbieznoh'
           }
         }
       }

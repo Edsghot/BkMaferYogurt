@@ -13,6 +13,7 @@ import { ReqErrorDto } from './request/reqErrorDto.dto';
 import { DateRangeDto } from '../user/request/DateRangeDto.dto';
 import { Product } from '../product/entity/ProductEntity.entity';
 import { CartItem } from '../cart/entity/CartItem.entity';
+import { Shipment } from '../shipment/entity/ShipmentEntity.entity';
 
 @Injectable()
 export class SaleService {
@@ -23,6 +24,8 @@ export class SaleService {
     private readonly cartRepository: Repository<Cart>,
     @InjectRepository(CartItem)
     private readonly cartItemRepository: Repository<CartItem>,
+    @InjectRepository(Shipment)
+    private readonly shipmentRepository: Repository<Shipment>,
     @InjectRepository(Product)
     private readonly productRepository: Repository<Product>,
     @InjectRepository(User)
@@ -45,6 +48,7 @@ export class SaleService {
       }
       sale.Cart = cart;
 
+      var nameMethod = "Delivery";
       sale.ShippingMethod = request.ShippingMethod;
       sale.PaymentMethod = request.PaymentMethod;
       sale.PaymentNumber = Math.floor(1000 + Math.random() * 9000).toString();
@@ -53,6 +57,12 @@ export class SaleService {
       sale.SaleDate = moment.tz('America/Lima').toDate();
       sale.idShipment = request.idShipment;
       sale.ImagePayment = request.ImagePayment;
+
+      if(request.ShippingMethod){
+        nameMethod = "Recojo en tienda";
+      }
+
+
 
       if (request.PaymentMethod == false) {
         await this.mailValidateService.sendMailUser(request);
@@ -79,11 +89,15 @@ export class SaleService {
         //enviar correo de confirmacion del pago exitoso
         var res = new ReqSuccessDto();
         res.Mail = user.Mail;
-        res.user = user.FirstName;
-        res.items = cart.Items;
-        res.total = sale.Total;
+        res.User = user.FirstName;
+        res.Items = cartItems;
+        res.Total = sale.Total;
+        res.Methodship = request.ShippingMethod;
+        res.MethodPayment = request.PaymentMethod;
+        res.Shipment = await this.shipmentRepository.findOne({where: {IdShipment: request.idShipment}});
+        
 
-      await this.mailValidateService.sendPaymentSuccess(res);
+        await this.mailValidateService.sendPaymentSuccess(res);
       }
       await this.saleRepository.save(sale);
       return { msg: 'Venta insertada correctamente', success: true };
@@ -158,7 +172,7 @@ export class SaleService {
       //Enviar correo de confirmacion de pago, idCart
       var res = new ReqSuccessDto();
       res.Mail = user.Mail;
-      res.user = user.FirstName;
+      res.User = user.FirstName;
 
       await this.mailValidateService.sendPaymentSuccess(res);
 

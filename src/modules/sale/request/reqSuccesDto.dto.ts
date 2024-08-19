@@ -1,8 +1,12 @@
 import { CartItem } from "src/modules/cart/entity/CartItem.entity";
+import { Shipment } from "src/modules/shipment/entity/ShipmentEntity.entity";
 
 export class ReqSuccessDto {
     Mail: string;
-    user: string;
-    items: CartItem[];
-    total: number;
+    User: string;
+    Items: CartItem[];
+    Total: number;
+    Methodship: boolean;
+    MethodPayment: boolean;
+    Shipment: Shipment;
 }
