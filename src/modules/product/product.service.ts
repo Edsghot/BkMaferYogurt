@@ -41,6 +41,7 @@ export class ProductService {
           product.Stock=updateProductDto.Stock;
           product.Visible=updateProductDto.Visible;
           product.UrlImage=updateProductDto.UrlImage;
+          product.Category=updateProductDto.Category;
           
           await this.productRepository.save(product);
     

@@ -244,7 +244,7 @@ export class SaleService {
 
   async counts() {
     try {
-      const resultUser = await this.userRepository.query('SELECT COUNT(*) FROM user WHERE Rol=1 and Deleted=false');
+      const resultUser = await this.userRepository.query('SELECT COUNT(*) FROM user WHERE Rol=0 and Deleted=false');
       const numerUser = resultUser[0]['COUNT(*)'];
 
       const resultProduct = await this.productRepository.query('SELECT COUNT(*) FROM product where Deleted=false');

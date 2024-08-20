@@ -181,7 +181,7 @@ export class AuthValidateService {
 
 
     if(request.Methodship === false){
-      metodoEnvio = 'DELIVERY'
+      metodoEnvio = 'ENVIO'
       ubicacion = request.Shipment.Address + ',' + request.Shipment.District +', '+request.Shipment.Province + ',' + request.Shipment.Region 
     }
 
@@ -281,7 +281,7 @@ export class AuthValidateService {
         >
           <p style="margin: 0">[───────────── Corte aquí ─────────────]</p>
           <p style="margin: 0">
-            Este es tu comprobante de compra. ¡Gracias por tu compra en Yogurt
+            Este es tu comprobante de compra. ¡Gracias por tu compra en Agroindustrias
             Mafer!
           </p>
         </div>
@@ -362,7 +362,7 @@ export class AuthValidateService {
         >Voucher:</span
       >
       <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ8kyVL0IEHIqgTF3YtHhaxwmCQuq6LcY9Xw&s"
+        src=${request.Img}
         alt="User Image"
         style="width: 300px; height: auto; margin-left: 10px"
       />
@@ -422,7 +422,8 @@ export class AuthValidateService {
   style="
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 0;
   "
 >
@@ -462,7 +463,7 @@ export class AuthValidateService {
     </div>
     <div style="padding: 20px; text-align: justify">
       <h2 style="font-size: 22px; color: #333333">
-        <span style="color: #1a7eb9">Hola, </span> {JHAIRCITO}
+        <span style="color: #1a7eb9">Hola, </span> ${userMail.FirstName}
       </h2>
       <p style="font-size: 16px; color: #555555">
         ✅ ¡Gracias por registrarte para obtener una cuenta en Agroindustrias Mafer! ⭐
@@ -482,7 +483,7 @@ export class AuthValidateService {
           color: #333333;
         "
       >
-        <p>{988776}</p>
+        <p>${code}</p>
       </div>
     </div>
     <div
@@ -552,7 +553,8 @@ export class AuthValidateService {
   style="
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 0;
   "
 >
@@ -592,7 +594,7 @@ export class AuthValidateService {
     </div>
     <div style="padding: 20px; text-align: justify">
       <h2 style="font-size: 22px; color: #333333">
-        <span style="color: #1a7eb9">Hola, </span> {JHAIRCITO}
+        <span style="color: #1a7eb9">Hola, </span> ${this.obtenerNombreEmail(email)}
       </h2>
       <p style="font-size: 16px; color: #555555">
         Le proporcionamos el código de verificación 🔒 para recuperar su
@@ -612,7 +614,7 @@ export class AuthValidateService {
           color: #333333;
         "
       >
-        <p>{988776}</p>
+        <p>${code}</p>
       </div>
     </div>
     <div
