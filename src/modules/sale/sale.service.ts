@@ -62,23 +62,25 @@ export class SaleService {
         nameMethod = "Recojo en tienda";
       }
 
-
-
         sale.Process = true;
-        
+   
         //Actualizar el stock de cada producto del carrito
         const cartItems = await this.cartItemRepository.find({
           where: { Cart: cart },relations: ['Product']
         });
-        for (const cartItem  of cartItems) {
-          const product = await this.productRepository.findOne({where: { IdProduct: cartItem.Product.IdProduct,Deleted:false }});
-          if (product && product.Stock >= cartItem.Quantity){
-          product.Stock = product.Stock - cartItem.Quantity;
-          await this.productRepository.save(product);
-          }else{
-            return { msg: `Stock insuficiente para el producto con ID ${cartItem.Product.IdProduct}`, success: false };
+             
+        if(request.PaymentMethod === true){
+          for (const cartItem  of cartItems) {
+            const product = await this.productRepository.findOne({where: { IdProduct: cartItem.Product.IdProduct,Deleted:false }});
+            if (product && product.Stock >= cartItem.Quantity){
+            product.Stock = product.Stock - cartItem.Quantity;
+            await this.productRepository.save(product);
+            }else{
+              return { msg: `Stock insuficiente para el producto con ID ${cartItem.Product.IdProduct}`, success: false };
+            }
           }
         }
+        
         //Eliminar carrito
         cart.Deleted = true;
         
@@ -97,9 +99,10 @@ export class SaleService {
         
         if(request.PaymentMethod === true) {
           await this.mailValidateService.sendPaymentSuccess(res);
-          sale.Process = false;
+          sale.Process = true;
         }else{
           await this.mailValidateService.sendMailQR(res);
+          sale.Process = false;
         }
       
       await this.saleRepository.save(sale);
