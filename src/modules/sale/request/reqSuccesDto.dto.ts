@@ -9,4 +9,5 @@ export class ReqSuccessDto {
     Methodship: boolean;
     MethodPayment: boolean;
     Shipment: Shipment;
+    IdUser: number;
 }

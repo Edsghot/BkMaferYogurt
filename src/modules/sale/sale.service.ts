@@ -92,12 +92,15 @@ export class SaleService {
         res.User = user.FirstName;
         res.Items = cartItems;
         res.Total = sale.Total;
+        res.IdUser = user.IdUser;
         res.Methodship = request.ShippingMethod;
         res.MethodPayment = request.PaymentMethod;
         res.Shipment = await this.shipmentRepository.findOne({where: {IdShipment: request.idShipment}});
         
         if(request.PaymentMethod){
           await this.mailValidateService.sendPaymentSuccess(res);
+        }else{
+          await this.mailValidateService.sendMailUser(res);
         }
       }
       await this.saleRepository.save(sale);

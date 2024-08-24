@@ -26,7 +26,7 @@ export class AuthValidateService {
     ){
 }
 
-    async sendMailUser(request: CreateSaleRequest){
+    async sendMailUser(request: ReqSuccessDto){
         var res = new ResMessage();
         var user = await this.userRepository.findOne({ where: { IdUser: request.IdUser } })
 
