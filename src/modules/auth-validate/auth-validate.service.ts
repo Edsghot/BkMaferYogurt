@@ -463,7 +463,7 @@ export class AuthValidateService {
     </div>
     <div style="padding: 20px; text-align: justify">
       <h2 style="font-size: 22px; color: #333333">
-        <span style="color: #1a7eb9">Hola, </span> ${userMail.FirstName}
+        <span style="color: #1a7eb9">Hola, </span> ${nameEmail}
       </h2>
       <p style="font-size: 16px; color: #555555">
         ✅ ¡Gracias por registrarte para obtener una cuenta en Agroindustrias Mafer! ⭐
