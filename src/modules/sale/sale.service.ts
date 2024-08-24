@@ -96,8 +96,9 @@ export class SaleService {
         res.MethodPayment = request.PaymentMethod;
         res.Shipment = await this.shipmentRepository.findOne({where: {IdShipment: request.idShipment}});
         
-
-        await this.mailValidateService.sendPaymentSuccess(res);
+        if(request.PaymentMethod){
+          await this.mailValidateService.sendPaymentSuccess(res);
+        }
       }
       await this.saleRepository.save(sale);
       return { msg: 'Venta insertada correctamente', success: true };
