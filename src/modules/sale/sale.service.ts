@@ -81,10 +81,7 @@ export class SaleService {
         }
         //Eliminar carrito
         cart.Deleted = true;
-        if(request.PaymentMethod === false) {
-
-          cart.Deleted  = false;
-        }
+        
         await this.cartRepository.save(cart);
         //enviar correo de confirmacion del pago exitoso
         var res = new ReqSuccessDto();
