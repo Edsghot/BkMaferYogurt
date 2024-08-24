@@ -13,10 +13,10 @@ export class Sale {
   @JoinColumn({ name: 'userId' })
   Client: User;
 
-  @Column()
+  @Column({ type: 'boolean', default: false })
   ShippingMethod:boolean;
 
-  @Column()
+  @Column({ type: 'boolean', default: false })
   PaymentMethod:boolean;
 
   @Column()
@@ -25,7 +25,7 @@ export class Sale {
   @Column()
   CardNumber:string;
 
-  @Column()
+  @Column({ type: 'boolean', default: false })
   Process:boolean;
 
   @Column('date')
