@@ -64,10 +64,6 @@ export class SaleService {
 
 
 
-      if (request.PaymentMethod == false) {
-        await this.mailValidateService.sendMailUser(request);
-        sale.Process = false;
-      } else {
         sale.Process = true;
         
         //Actualizar el stock de cada producto del carrito
@@ -96,13 +92,15 @@ export class SaleService {
         res.Methodship = request.ShippingMethod;
         res.MethodPayment = request.PaymentMethod;
         res.Shipment = await this.shipmentRepository.findOne({where: {IdShipment: request.idShipment}});
+        res.Idcart = cart.IdCart;
         
         if(request.PaymentMethod){
           await this.mailValidateService.sendPaymentSuccess(res);
+          sale.Process = false;
         }else{
-          await this.mailValidateService.sendMailUser(res);
+          await this.mailValidateService.sendMailQR(res);
         }
-      }
+      
       await this.saleRepository.save(sale);
       return { msg: 'Venta insertada correctamente', success: true };
     } catch (error) {

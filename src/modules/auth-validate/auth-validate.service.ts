@@ -4,9 +4,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CORREO } from 'src/Common/constants/constantService';
 
-//import { ReqErrorDto } from 'src/DTO/Payment/reqErrorDto.dto';
-//import { ReqSuccessDto } from 'src/DTO/Payment/reqSuccessDto.dto';
-//import { ResMessage } from 'src/DTO/resController/RespMessage.dto';
 import { Repository } from 'typeorm';
 import { CreateSaleRequest } from '../sale/request/CreateSaleRequest.request';
 import { User } from '../user/entity/UserEntity.entity';
@@ -26,7 +23,7 @@ export class AuthValidateService {
     ){
 }
 
-    async sendMailUser(request: ReqSuccessDto){
+    async sendMailQR(request: ReqSuccessDto){
         var res = new ResMessage();
         var user = await this.userRepository.findOne({ where: { IdUser: request.IdUser } })
 
@@ -108,7 +105,7 @@ export class AuthValidateService {
         </p>
         <div style="display: flex; justify-content: flex-end; margin-top: 20px">
           <a
-            href="https://bkmaferyogurt-production.up.railway.app/api/sale/acceptPayment/${request.IdCart}/${request.IdUser}"
+            href="https://bkmaferyogurt-production.up.railway.app/api/sale/acceptPayment/${request.Idcart}/${request.IdUser}"
             style="
               background-color: #f92f60;
               color: #ffffff;
@@ -123,7 +120,7 @@ export class AuthValidateService {
             Confirmar Compra
           </a>
           <a
-            href="https://bkmaferyogurt-production.up.railway.app/api/sale/failPayment/${request.IdCart}/${request.IdUser}"
+            href="https://bkmaferyogurt-production.up.railway.app/api/sale/failPayment/${request.Idcart}/${request.IdUser}"
             style="
               background-color: #333;
               color: #ffffff;
