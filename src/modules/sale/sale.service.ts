@@ -94,7 +94,7 @@ export class SaleService {
         res.Shipment = await this.shipmentRepository.findOne({where: {IdShipment: request.idShipment}});
         res.Idcart = cart.IdCart;
         
-        if(request.PaymentMethod){
+        if(request.PaymentMethod === true) {
           await this.mailValidateService.sendPaymentSuccess(res);
           sale.Process = false;
         }else{
