@@ -32,7 +32,7 @@ export class AuthValidateService {
                 to: CORREO,
                 from: 'jhedgost@gmail.com',
                 subject: `PAGO POR ACEPTAR....`,
-                text: 'Welcome a Agroindustrias Mafer',
+                text: 'Welcome a  Mafer',
                 html: `<div
   style="
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

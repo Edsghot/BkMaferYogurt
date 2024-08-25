@@ -17,6 +17,8 @@ export class SaleController {
     async insertSale(
         @Body() request: CreateSaleRequest,
         @UploadedFile() file?: Express.Multer.File) {
+
+
             if(!file){
                 return this.saleService.insertSale(request);
             } else{

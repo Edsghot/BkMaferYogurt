@@ -36,6 +36,20 @@ export class SaleService {
 
   async insertSale(request: CreateSaleRequest) {
     try {
+      var stringPayment = ''+request.PaymentMethod;
+      var stringShipping = ''+request.ShippingMethod;
+
+      var boolPayment = false;
+      var boolShippment = false;
+
+      if(stringPayment === 'true'){
+        boolPayment = true;
+      }
+      if(stringShipping === 'true'){
+        boolShippment = true;
+      }
+
+
       let sale = new Sale();
       var user = await this.userRepository.findOne({ where: { IdUser: request.IdUser, Deleted: false } })
       if (!user) {
@@ -49,8 +63,8 @@ export class SaleService {
       sale.Cart = cart;
 
       var nameMethod = "Delivery";
-      sale.ShippingMethod = request.ShippingMethod;
-      sale.PaymentMethod = request.PaymentMethod;
+      sale.ShippingMethod = boolShippment;
+      sale.PaymentMethod = boolPayment;
       sale.PaymentNumber = Math.floor(1000 + Math.random() * 9000).toString();
       sale.CardNumber = request.CardNumber;
       sale.Total = request.Total;
@@ -58,7 +72,7 @@ export class SaleService {
       sale.idShipment = request.idShipment;
       sale.ImagePayment = request.ImagePayment;
 
-      if(request.ShippingMethod){
+      if(boolShippment){
         nameMethod = "Recojo en tienda";
       }
 
@@ -69,7 +83,7 @@ export class SaleService {
           where: { Cart: cart },relations: ['Product']
         });
              
-        if(request.PaymentMethod === true){
+        if(boolPayment){
           for (const cartItem  of cartItems) {
             const product = await this.productRepository.findOne({where: { IdProduct: cartItem.Product.IdProduct,Deleted:false }});
             if (product && product.Stock >= cartItem.Quantity){
@@ -83,6 +97,9 @@ export class SaleService {
         
         //Eliminar carrito
         cart.Deleted = true;
+        if(!boolPayment) {
+          cart.Deleted = false;
+        }
         
         await this.cartRepository.save(cart);
         //enviar correo de confirmacion del pago exitoso
@@ -92,12 +109,12 @@ export class SaleService {
         res.Items = cartItems;
         res.Total = sale.Total;
         res.IdUser = user.IdUser;
-        res.Methodship = request.ShippingMethod;
-        res.MethodPayment = request.PaymentMethod;
+        res.Methodship = boolShippment;
+        res.MethodPayment = boolPayment;
         res.Shipment = await this.shipmentRepository.findOne({where: {IdShipment: request.idShipment}});
         res.Idcart = cart.IdCart;
         
-        if(request.PaymentMethod === true) {
+        if(boolPayment) {
           await this.mailValidateService.sendPaymentSuccess(res);
           sale.Process = true;
         }else{
