@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString, Min } from "class-validator";
 
 export class UpdateProductRequest {
     @IsNotEmpty()
@@ -22,6 +22,7 @@ export class UpdateProductRequest {
     @IsOptional()
     @IsNumber()
     @Transform(({ value }) => Number(value))
+    @IsPositive({ message: 'El precio debe ser un número positivo.' })
     Price?: number;
 
     UrlImage: string;
@@ -29,6 +30,6 @@ export class UpdateProductRequest {
     Visible: boolean;
 
     Category:string;
-
+    @Min(1, { message: 'El stock debe ser al menos 1.' })
     Stock: number;
 }

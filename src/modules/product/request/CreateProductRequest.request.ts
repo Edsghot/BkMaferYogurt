@@ -1,5 +1,5 @@
 import { Transform } from "class-transformer";
-import { IsNotEmpty, IsString, IsNumber } from "class-validator";
+import { IsNotEmpty, IsString, IsNumber, IsPositive, Min } from "class-validator";
 
 export class CreateProductRequest {
     @IsNotEmpty()
@@ -19,9 +19,11 @@ export class CreateProductRequest {
     @IsNotEmpty()
     @IsNumber()
     @Transform(({ value }) => Number(value))
+    @IsPositive({ message: 'El precio debe ser un número positivo.' })
     Price: number;
 
     Category:string;
-  
+    
+    @Min(1, { message: 'El stock debe ser al menos 1.' })
     Stock: number;
   }
