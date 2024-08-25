@@ -33,7 +33,7 @@ export class AuthValidateService {
                 to: CORREO,
                 from: 'jhedgost@gmail.com',
                 subject: `PAGO POR ACEPTAR....`,
-                text: 'Welcome a  Mafer',
+                text: 'Welcome a  Agroindustrias MAFER',
                 html: `<div
   style="
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -62,7 +62,7 @@ export class AuthValidateService {
       "
     >
       <h1 style="font-size: 24px; margin: 0; font-weight: bolder">
-        <span style="color: #fff">AGROINDUSTRIAS MAFER</span>
+        <span style="color: #fff">Agroindustrias MAFER</span>
       </h1>
     </div>
     <div style="padding: 20px; text-align: justify">
@@ -146,7 +146,7 @@ export class AuthValidateService {
       "
     >
       <p style="font-size: 14px; color: #fff; margin: 10px 0">
-        Enviado por JHEDGOST
+        Enviado por Agroindustrias MAFER
       </p>
     </div>
   </div>
@@ -189,7 +189,7 @@ export class AuthValidateService {
     to: request.Mail,
     from: 'jhedgost@gmail.com',
     subject: `PAGO CONFIRMADO`,
-    text: 'welcome a Agroindustrias Mafer',
+    text: 'welcome a Agroindustrias MAFER',
     html: `<div
   style="
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -218,7 +218,7 @@ export class AuthValidateService {
       "
     >
       <h1 style="font-size: 24px; margin: 0; font-weight: bolder">
-        <span style="color: #fff">YOGURT MAFER</span>
+        <span style="color: #fff">Agroindustrias MAFER</span>
       </h1>
     </div>
     <div style="padding: 20px; text-align: justify">
@@ -226,8 +226,8 @@ export class AuthValidateService {
         <span style="color: #c04751">Hola, </span> ${request.User}! 🚀
       </h2>
       <p style="font-size: 16px; color: #555555">
-        Hemos revisado el comprobante de pago adjunto y nos complace informarte
-        que tu compra ha sido aceptada. 🎉
+        Nos complace informarte que tu compra ha sido revisado y aceptado 
+        con éxito. 🎉
       </p>
 
       <div
@@ -294,7 +294,7 @@ export class AuthValidateService {
       "
     >
       <p style="font-size: 14px; color: #fff; margin: 10px 0">
-        Enviado por JHEDGOST
+        Enviado por Agroindustrias MAFER
       </p>
     </div>
   </div>
@@ -312,7 +312,7 @@ export class AuthValidateService {
                 to: request.Mail,
                 from: 'jhedgost@gmail.com',
                 subject: `PAGO ERRONEO`,
-                text: 'Welcome a Agroindustrias Mafer',
+                text: 'Welcome a Agroindustrias MAFER',
                 html: `<div
   style="
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -341,7 +341,7 @@ export class AuthValidateService {
       "
     >
       <h1 style="font-size: 24px; margin: 0; font-weight: bolder">
-        <span style="color: #fff">AGROINDUSTRIAS MAFER</span>
+        <span style="color: #fff">Agroinsdustrias MAFER</span>
       </h1>
     </div>
     <div style="padding: 20px; text-align: justify">
@@ -374,7 +374,7 @@ export class AuthValidateService {
       "
     >
       <p style="font-size: 14px; color: #fff; margin: 10px 0">
-        Enviado por JHEDGOST
+        Enviado por Agroinsdustrias MAFER
       </p>
     </div>
   </div>
@@ -416,7 +416,7 @@ export class AuthValidateService {
               to: email,
               from: 'jhedgost@gmail.com',
               subject: `Tu código de verificación es: ${code}`,
-              text: 'Welcome Agroindustrias Mafer',
+              text: 'Welcome Agroinsdustrias MAFER',
               html: ` <div
   style="
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -465,7 +465,7 @@ export class AuthValidateService {
         <span style="color: #1a7eb9">Hola, </span> ${nameEmail}
       </h2>
       <p style="font-size: 16px; color: #555555">
-        ✅ ¡Gracias por registrarte para obtener una cuenta en Agroindustrias Mafer! ⭐
+        ✅ ¡Gracias por registrarte para obtener una cuenta en Agroinsdustrias MAFER! ⭐
         Antes de comenzar, necesitamos confirmar tu identidad. Por favor, copia
         el siguiente código e introdúcelo en la aplicación para verificar tu
         dirección de correo electrónico: ⬇️🔑
@@ -550,7 +550,7 @@ export class AuthValidateService {
               to: email,
               from: 'jhedgost@gmail.com',
               subject: `Tu código de recuperación es: ${code}`,
-              text: 'Recuperacion de contraseña Agroindutrias Mafer',
+              text: 'Recuperacion de contraseña Agroinsdustrias MAFER',
               html: ` <div
   style="
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -600,8 +600,8 @@ export class AuthValidateService {
       </h2>
       <p style="font-size: 16px; color: #555555">
         Le proporcionamos el código de verificación 🔒 para recuperar su
-        contraseña. Por favor, utilícelo en la aplicación correspondiente para
-        verificar su dirección de correo electrónico: ⬇️
+        contraseña para Agroinsdustrias MAFER. Por favor, utilícelo en la 
+        aplicación correspondiente paraverificar su dirección de correo electrónico: ⬇️
       </p>
 
       <div
