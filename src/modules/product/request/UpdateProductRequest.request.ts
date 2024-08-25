@@ -1,8 +1,10 @@
+import { Transform } from "class-transformer";
 import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class UpdateProductRequest {
     @IsNotEmpty()
     @IsNumber()
+    @Transform(({ value }) => Number(value))
     IdProduct: number;
   
     @IsOptional()
@@ -19,6 +21,7 @@ export class UpdateProductRequest {
   
     @IsOptional()
     @IsNumber()
+    @Transform(({ value }) => Number(value))
     Price?: number;
 
     UrlImage: string;
