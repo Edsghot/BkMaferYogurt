@@ -160,6 +160,8 @@ export class UserService {
       userRes = await this.userRepository.findOne({
         where: { Mail: userRequest, Password: password,Deleted:false},
       });
+
+      
   
       if (!userRes) {
         userRes = await this.userRepository.findOne({

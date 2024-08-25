@@ -11,6 +11,7 @@ import { ResMessage } from '../sale/request/ResMessage.dto';
 import { ReqSuccessDto } from '../sale/request/reqSuccesDto.dto';
 import { ReqErrorDto } from '../sale/request/reqErrorDto.dto';
 import { ValidateEmailSmsEntity } from './entity/ValidateEmailSms.entity';
+import { truncateSync } from 'fs';
 
 @Injectable()
 export class AuthValidateService {
@@ -384,6 +385,7 @@ export class AuthValidateService {
         return res.resultOK("Se envio correctamente");
     }
     async sendMail(email: string){
+      try{
       const userMail = await this.userRepository.findOne({ where: { Mail: email,Deleted:false } });
   
       if (userMail) {
@@ -444,8 +446,8 @@ export class AuthValidateService {
       "
     >
       <img
-        src="https://scontent.fcuz2-1.fna.fbcdn.net/v/t39.30808-6/453225652_122098852514446614_3798487310496189578_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeETJa3-PU2tlhpW02etEUcxjJJeoxVqpSWMkl6jFWqlJUSgxlpPnt3VFTQBE7MmQTSi0zoKI7DNQk4DusrvsWA4&_nc_ohc=GqeR4mWgmjoQ7kNvgHKE4_s&_nc_ht=scontent.fcuz2-1.fna&oh=00_AYDutvSCSbAhs_H-894s2oZOZ_nUdFqh7yUoGeuBUcU3zw&oe=66C87F51"
-        alt="Platzi Logo"
+        src="https://jhedgost.com/logo.png"
+        alt="jhedgost Logo"
         style="
           margin-right: 10px;
           width: 50px;
@@ -496,8 +498,8 @@ export class AuthValidateService {
         Team JhedGost.
       </p>
       <img
-        src="https://scontent.fcuz2-1.fna.fbcdn.net/v/t39.30808-6/453225652_122098852514446614_3798487310496189578_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeETJa3-PU2tlhpW02etEUcxjJJeoxVqpSWMkl6jFWqlJUSgxlpPnt3VFTQBE7MmQTSi0zoKI7DNQk4DusrvsWA4&_nc_ohc=GqeR4mWgmjoQ7kNvgHKE4_s&_nc_ht=scontent.fcuz2-1.fna&oh=00_AYDutvSCSbAhs_H-894s2oZOZ_nUdFqh7yUoGeuBUcU3zw&oe=66C87F51"
-        alt="Platzi Logo"
+        src="https://jhedgost.com/logo.png"
+        alt="Jhedgost Logo"
         style="
           margin-top: 20px;
           width: 50px;
@@ -515,11 +517,14 @@ export class AuthValidateService {
 `,
           }
       )
-      
-      return res.resultOK("Se envio correctamente");
+      return {msg:"Se envio correctamente el codigo de verificación a tu correo", success: true}
+     }catch(e){
+      return {msg:"Error no se pudo encontrar tu correo verifique este bien escrito", success: false}
+     }
   }
 
   async sendMailRecoverPassword(email: string){
+    try{
       var res = new ResMessage();
 
       var code = Math.floor(100000 + Math.random() * 900000).toString();
@@ -575,8 +580,8 @@ export class AuthValidateService {
       "
     >
       <img
-        src="https://scontent.fcuz2-1.fna.fbcdn.net/v/t39.30808-6/453225652_122098852514446614_3798487310496189578_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeETJa3-PU2tlhpW02etEUcxjJJeoxVqpSWMkl6jFWqlJUSgxlpPnt3VFTQBE7MmQTSi0zoKI7DNQk4DusrvsWA4&_nc_ohc=GqeR4mWgmjoQ7kNvgHKE4_s&_nc_ht=scontent.fcuz2-1.fna&oh=00_AYDutvSCSbAhs_H-894s2oZOZ_nUdFqh7yUoGeuBUcU3zw&oe=66C87F51"
-        alt="Platzi Logo"
+        src="https://jhedgost.com/logo.png"
+        alt="jhedgost Logo"
         style="
           margin-right: 10px;
           width: 50px;
@@ -627,8 +632,8 @@ export class AuthValidateService {
         Team JhedGost.
       </p>
       <img
-        src="https://scontent.fcuz2-1.fna.fbcdn.net/v/t39.30808-6/453225652_122098852514446614_3798487310496189578_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeETJa3-PU2tlhpW02etEUcxjJJeoxVqpSWMkl6jFWqlJUSgxlpPnt3VFTQBE7MmQTSi0zoKI7DNQk4DusrvsWA4&_nc_ohc=GqeR4mWgmjoQ7kNvgHKE4_s&_nc_ht=scontent.fcuz2-1.fna&oh=00_AYDutvSCSbAhs_H-894s2oZOZ_nUdFqh7yUoGeuBUcU3zw&oe=66C87F51"
-        alt="Platzi Logo"
+        src="https://jhedgost.com/logo.png"
+        alt="jhedgost Logo"
         style="
           margin-top: 20px;
           width: 50px;
@@ -646,8 +651,11 @@ export class AuthValidateService {
 `,
           }
       )
+      return {msg:"Se envio correctamente el codigo de verificación a tu correo", success: true}
+    }catch(e){
+     return {msg:"Error no se pudo encontrar tu correo verifique este bien escrito", success: false}
+    }
       
-      return res.resultOK("Se envio correctamente");
   }
 
     obtenerNombreEmail(email: string){
