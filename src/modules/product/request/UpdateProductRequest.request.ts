@@ -30,6 +30,8 @@ export class UpdateProductRequest {
     Visible: boolean;
 
     Category:string;
-    @Min(1, { message: 'El stock debe ser al menos 1.' })
+    @IsNumber()
+    @Transform(({ value }) => Number(value))
+    @IsPositive({ message: 'El stock debe ser un número positivo.' })
     Stock: number;
 }
