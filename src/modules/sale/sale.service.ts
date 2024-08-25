@@ -219,7 +219,7 @@ export class SaleService {
       if (!user) {
         return { msg: "error con el usuario" }
       }
-      var cart = await this.cartRepository.findOne({ where: { IdCart: request.IdCart,Deleted:false } })
+      var cart = await this.cartRepository.findOne({ where: { IdCart: request.IdCart } })
       if (!cart) {
         return { msg: "error con el carrito" }
       }
