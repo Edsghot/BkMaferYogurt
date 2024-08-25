@@ -1,3 +1,4 @@
+import { Transform } from "class-transformer";
 import { IsNotEmpty, IsString, IsNumber } from "class-validator";
 
 export class CreateProductRequest {
@@ -17,6 +18,7 @@ export class CreateProductRequest {
   
     @IsNotEmpty()
     @IsNumber()
+    @Transform(({ value }) => Number(value))
     Price: number;
 
     Category:string;
