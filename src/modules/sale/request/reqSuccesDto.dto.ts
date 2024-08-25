@@ -11,4 +11,5 @@ export class ReqSuccessDto {
     Shipment: Shipment;
     IdUser: number;
     Idcart: number;
+    Image: string;
 }

@@ -98,7 +98,7 @@ export class AuthValidateService {
             >Voucher:</span
           >
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJ8kyVL0IEHIqgTF3YtHhaxwmCQuq6LcY9Xw&s"
+            src=${request.Image}
             alt="User Image"
             style="width: 300px; height: auto; margin-left: 10px"
           />
@@ -179,7 +179,7 @@ export class AuthValidateService {
 
     if(request.Methodship === false){
       metodoEnvio = 'ENVIO'
-      ubicacion = request.Shipment.Address + ',' + request.Shipment.District +', '+request.Shipment.Province + ',' + request.Shipment.Region 
+      ubicacion =  request.Shipment.District +', '+request.Shipment.Province + ',' + request.Shipment.Region 
     }
 
 

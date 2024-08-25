@@ -97,9 +97,6 @@ export class SaleService {
         
         //Eliminar carrito
         cart.Deleted = true;
-        if(!boolPayment) {
-          cart.Deleted = false;
-        }
         
         await this.cartRepository.save(cart);
         //enviar correo de confirmacion del pago exitoso
@@ -118,6 +115,7 @@ export class SaleService {
           await this.mailValidateService.sendPaymentSuccess(res);
           sale.Process = true;
         }else{
+          res.Image = request.ImagePayment;
           await this.mailValidateService.sendMailQR(res);
           sale.Process = false;
         }
@@ -168,7 +166,7 @@ export class SaleService {
       if (!user) {
         return { msg: "error con el usuario" }
       }
-      var cart = await this.cartRepository.findOne({ where: { IdCart: request.IdCart,Deleted:false } })
+      var cart = await this.cartRepository.findOne({ where: { IdCart: request.IdCart } })
       if (!cart) {
         return { msg: "error con el carrito" }
       }
@@ -193,9 +191,17 @@ export class SaleService {
       cart.Deleted = true;
       await this.cartRepository.save(cart);
       //Enviar correo de confirmacion de pago, idCart
+
       var res = new ReqSuccessDto();
       res.Mail = user.Mail;
       res.User = user.FirstName;
+      res.Items = cartItems;
+      res.Total = sale.Total;
+      res.IdUser = user.IdUser;
+      res.Methodship = sale.ShippingMethod;
+      res.MethodPayment = sale.PaymentMethod;
+      res.Shipment = await this.shipmentRepository.findOne({where: {IdShipment: sale.idShipment}});
+      res.Idcart = cart.IdCart;
 
       await this.mailValidateService.sendPaymentSuccess(res);
 
