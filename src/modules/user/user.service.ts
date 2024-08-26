@@ -51,13 +51,13 @@ export class UserService {
         return { msg: band.msg, success: band.success, data: null };
       }
   
-      const userDni = await this.userRepository.findOne({ where: { Dni: request.Dni } });
+      const userDni = await this.userRepository.findOne({ where: { Dni: request.Dni,Deleted:false } });
   
       if (userDni) {
         return { msg: "Ya se registró un usuario con ese DNI", success: false, data: null };
       }
 
-      const userMail = await this.userRepository.findOne({ where: { Mail: request.Mail } });
+      const userMail = await this.userRepository.findOne({ where: { Mail: request.Mail,Deleted:false } });
   
       if (userMail) {
         return { msg: "Ya se registró un usuario con ese EMAIL", success: false, data: null };
